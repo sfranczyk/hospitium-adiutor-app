@@ -29,5 +29,17 @@ namespace API.Data
 
             await context.SaveChangesAsync();
         }
+
+        public static async Task SeedPatients(DataContext context)
+        {
+            if (await context.Patients.AnyAsync()) return;
+
+            var patientData = await System.IO.File.ReadAllTextAsync("Data/PatientSeedData.json");
+            var patients = JsonSerializer.Deserialize<List<Patient>>(patientData);
+
+            context.Patients.AddRange(patients);
+            
+            await context.SaveChangesAsync();
+        }
     }
 }

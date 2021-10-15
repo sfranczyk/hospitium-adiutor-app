@@ -1,22 +1,17 @@
 using System;
-using API.Extensions;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class Patient
+    public class PatientDto
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Pesel { get; set; }
         public string Gender { get; set; }
+        public int Age { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
-        public Department Department { get; set; }
-
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        // public HealthFacilityNameDto HealthFacility { get; set; }
+        // public DepartmentNameDto Department { get; set; }
     }
 }

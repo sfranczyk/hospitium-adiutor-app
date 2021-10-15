@@ -9,6 +9,7 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AppUser, MemberDTO>();
+            CreateMap<Patient, PatientDto>();
         }
     }
 }
