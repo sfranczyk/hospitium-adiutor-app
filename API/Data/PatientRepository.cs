@@ -16,6 +16,7 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        
         public PatientRepository(DataContext context, IMapper mapper)
         {
             _context = context;
@@ -33,6 +34,20 @@ namespace API.Data
         public async Task<Patient> GetPatientByIdAsync(int id)
         {
             return await _context.Patients.FindAsync(id);
+        }
+
+        public async Task<PatientDto> GetPatientDtoByIdAsync(int id)
+        {
+            Patient patient = await GetPatientByIdAsync(id);
+            
+            return _mapper.Map<Patient, PatientDto>(patient);
+        }
+
+        public bool TryGetPatientDtoById(int id, out PatientDto patient)
+        {
+            Patient p = _context.Patients.Find(id);
+            patient = _mapper.Map<Patient, PatientDto>(p);
+            return patient != null ? true : false;
         }
 
         public async Task<Patient> GetPatientByPeselAsync(string pesel)
@@ -62,18 +77,22 @@ namespace API.Data
             _context.Entry(patient).State = EntityState.Modified;
         }
 
-        public async Task<PatientDto> InsertPatientsAsync(Patient patient)
+        public async Task<Patient> AddPatientsAsync(PatientRegisterDto patientRegister)
         {
+            Patient patient = _mapper.Map<PatientRegisterDto, Patient>(patientRegister);
             _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
-            return new PatientDto{
-
-            };
+            await SaveAllAsync();
+            return patient;
         }
 
-        public Task<PatientDto> UpdatePatientsAsync(Patient patient)
+        public Task<Patient> UpdatePatientsAsync(PatientRegisterDto patient)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> AnyPatientsAsync(string pesel)
+        {
+            return await _context.Patients.AnyAsync(x => x.Pesel == pesel);
         }
     }
 }

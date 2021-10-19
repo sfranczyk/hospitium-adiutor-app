@@ -10,12 +10,15 @@ namespace API.Interfaces
         void Update(Patient patient);
         Task<bool> SaveAllAsync();
 
-        Task<PatientDto> InsertPatientsAsync(Patient patient);
-        Task<PatientDto> UpdatePatientsAsync(Patient patient);
-        Task<IEnumerable<Patient>> GetPatientsAsync();
+        Task<Patient> AddPatientsAsync(PatientRegisterDto patient);
+        Task<Patient> UpdatePatientsAsync(PatientRegisterDto patient);
         Task<Patient> GetPatientByIdAsync(int id);
         Task<Patient> GetPatientByPeselAsync(string pesel);
-        Task<IEnumerable<PatientDto>> GetPatientDtosAsync();
+        Task<IEnumerable<Patient>> GetPatientsAsync();
+        Task<PatientDto> GetPatientDtoByIdAsync(int id);
         Task<PatientDto> GetPatientDtoAsync(string pesel);
+        Task<IEnumerable<PatientDto>> GetPatientDtosAsync();
+        Task<bool> AnyPatientsAsync(string pesel);
+        bool TryGetPatientDtoById(int id, out PatientDto patient);
     }
 }
