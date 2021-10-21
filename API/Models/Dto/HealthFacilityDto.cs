@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace API.DTOs
+namespace API.Models.Dto
 {
     public class HealthFacilityDto
     {

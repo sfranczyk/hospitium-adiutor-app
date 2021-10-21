@@ -1,6 +1,6 @@
 using System;
 
-namespace API.DTOs
+namespace API.Models.Dto
 {
     public class MemberDTO
     {

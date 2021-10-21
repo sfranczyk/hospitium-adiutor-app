@@ -1,7 +1,7 @@
 using System;
 using API.Extensions;
 
-namespace API.Entities
+namespace API.Models
 {
     public class Patient
     {

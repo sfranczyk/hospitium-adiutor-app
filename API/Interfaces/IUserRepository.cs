@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.DTOs;
-using API.Entities;
+using API.Models.Dto;
+using API.Models;
 
 namespace API.Interfaces
 {

@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.DTOs;
-using API.Entities;
 using API.Interfaces;
+using API.Models;
+using API.Models.Dto;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Data
+namespace API.Data.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class PatientRepository : IPatientRepository, IPatientExist
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -47,7 +46,7 @@ namespace API.Data
         {
             Patient p = _context.Patients.Find(id);
             patient = _mapper.Map<Patient, PatientDto>(p);
-            return patient != null ? true : false;
+            return patient != null;
         }
 
         public async Task<Patient> GetPatientByPeselAsync(string pesel)
@@ -77,6 +76,11 @@ namespace API.Data
             _context.Entry(patient).State = EntityState.Modified;
         }
 
+        public Task<PatientDto> UpdateAsync(PatientDto patient)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Patient> AddPatientsAsync(PatientRegisterDto patientRegister)
         {
             Patient patient = _mapper.Map<PatientRegisterDto, Patient>(patientRegister);
@@ -93,6 +97,11 @@ namespace API.Data
         public async Task<bool> AnyPatientsAsync(string pesel)
         {
             return await _context.Patients.AnyAsync(x => x.Pesel == pesel);
+        }
+
+        public async Task<bool> PatientExist(int id)
+        {
+            return await _context.Patients.FindAsync(id) != null;
         }
     }
 }

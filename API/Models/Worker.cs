@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace API.Entities
+namespace API.Models
 {
     public class Worker
     {

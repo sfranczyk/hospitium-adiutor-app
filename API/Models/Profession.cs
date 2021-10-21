@@ -1,6 +1,6 @@
-namespace API.DTOs
+namespace API.Models
 {
-    public class DepartmentNameDto
+    public class Profession
     {
         public int Id { get; set; }
         public string Name { get; set; }

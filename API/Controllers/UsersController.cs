@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.DTOs;
+using API.Models.Dto;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
