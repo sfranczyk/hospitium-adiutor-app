@@ -46,18 +46,18 @@ namespace API.Data.Repositories
             _context.Entry(user).State = EntityState.Modified;
         }
 
-        public async Task<IEnumerable<MemberDTO>> GetMembersAsync()
+        public async Task<IEnumerable<WorkerDto>> GetMembersAsync()
         {
             return await _context.Users
-                .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkerDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<MemberDTO> GetMemberAsync(string username)
+        public async Task<WorkerDto> GetMemberAsync(string username)
         {
             return await _context.Users
                 .Where(x => x.UserName == username)
-                .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkerDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
     }

@@ -8,7 +8,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AppUser, MemberDTO>();
+            CreateMap<AppUser, WorkerDto>();
             
             CreateMap<Patient, PatientDto>()
                 .ForMember(dest => dest.HealthFacility,

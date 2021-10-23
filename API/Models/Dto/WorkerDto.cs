@@ -2,7 +2,7 @@ using System;
 
 namespace API.Models.Dto
 {
-    public class MemberDTO
+    public class WorkerDto
     {
         public int Id { get; set; }
         public string Username { get; set; }
