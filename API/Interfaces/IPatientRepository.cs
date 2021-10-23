@@ -7,18 +7,16 @@ namespace API.Interfaces
 {
     public interface IPatientRepository
     {
-        void Update(Patient patient);
+        Task<PatientDto> AddAsync(PatientRegisterDto patient);
         Task<PatientDto> UpdateAsync(PatientDto patient);
-        Task<Patient> AddPatientsAsync(PatientRegisterDto patient);
-        Task<Patient> UpdatePatientsAsync(PatientRegisterDto patient);
-        Task<Patient> GetPatientByIdAsync(int id);
-        Task<Patient> GetPatientByPeselAsync(string pesel);
-        Task<IEnumerable<Patient>> GetPatientsAsync();
-        Task<PatientDto> GetPatientDtoByIdAsync(int id);
-        Task<PatientDto> GetPatientDtoAsync(string pesel);
-        Task<IEnumerable<PatientDto>> GetPatientDtosAsync();
-        Task<bool> AnyPatientsAsync(string pesel);
-        bool TryGetPatientDtoById(int id, out PatientDto patient);
+        Task<Patient> GetByIdAsync(int id);
+        Task<PatientDto> GetDtoByIdAsync(int id);
+        Task<PatientDto> GetDtoByPeselAsync(string pesel);
+        Task<IEnumerable<PatientDto>> GetListDtoAsync();
+        Task<PatientDto> DeleteAsync(int id);
+
+        Task<bool> PeselExist(string pesel);
+
         Task<bool> SaveAllAsync();
     }
 }

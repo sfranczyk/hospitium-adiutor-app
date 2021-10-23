@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Dto;
-using API.Models;
 using API.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using static System.Char;
 
 namespace API.Controllers
 {
@@ -14,56 +12,75 @@ namespace API.Controllers
     public class PatientsController : BaseApiController
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IMapper _mapper;
 
-        public PatientsController(IPatientRepository patientRepository, IMapper mapper)
+        public PatientsController(IPatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
-            _mapper = mapper;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PatientDto>>> GetPatients()
-        {
-            var patients = await _patientRepository.GetPatientDtosAsync();
-            return Ok(patients);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<ActionResult<PatientDto>> GetById(int id)
         {
-            if (!_patientRepository.TryGetPatientDtoById(id, out var product))
-            {
-                return Ok(product);
-            }
-            return NotFound();
+            var patient = await _patientRepository.GetDtoByIdAsync(id);
+            if (patient == null) 
+                return NotFound();
+            return Ok(patient);
         }
-       
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PatientDto>>> GetList()
+        {
+            var patients = await _patientRepository.GetListDtoAsync();
+            return Ok(patients);
+        }
+
         [HttpGet("pesel/{pesel}")]
         public async Task<ActionResult<PatientDto>> GetByPesel(string pesel)
         {
-            return await _patientRepository.GetPatientDtoAsync(pesel);
+            var patient = await _patientRepository.GetDtoByPeselAsync(pesel);
+            if (patient == null)
+                return NotFound();
+            return Ok(patient);
         }
         
         [HttpPost("register")]
         public async Task<ActionResult> PostPatient(PatientRegisterDto registerDto)
         {
-            if (!PeselValidate(registerDto.Pesel)) return BadRequest("PESEL is invalid");
-            if (await PeselExist(registerDto.Pesel)) return BadRequest("PESEL is taken");
+            if (!PeselValidate(registerDto.Pesel)) 
+                return BadRequest("PESEL is invalid");
+            if (await _patientRepository.PeselExist(registerDto.Pesel)) 
+                return BadRequest("PESEL is taken");
 
-            Patient patient = await _patientRepository.AddPatientsAsync(registerDto);
+            var patient = await _patientRepository.AddAsync(registerDto);
 
-            return CreatedAtAction(nameof(GetById), new { id = patient.Id }, patient);
+            return Ok(patient);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, PatientDto updatedPatient)
+        {
+            if (await _patientRepository.GetByIdAsync(id) == null)
+                return BadRequest("Health Facility does not exist");
+
+            var patient = await _patientRepository.UpdateAsync(updatedPatient);
+
+            return Ok(patient);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<PatientDto>> Delete(int id)
+        {
+            if (await _patientRepository.GetByIdAsync(id) == null)
+                return BadRequest("Patient does not exist");
+
+            var patient = _patientRepository.DeleteAsync(id);
+
+            return Ok(patient);
         }
 
         private bool PeselValidate(string pesel)
         {
-            return pesel.Where(Char.IsDigit).ToArray().Length == 11;
-        }
-
-        private async Task<bool> PeselExist(string pesel)
-        {
-            return await _patientRepository.AnyPatientsAsync(pesel);
+            return pesel.Where(IsDigit).ToArray().Length == 11;
         }
     }
 }

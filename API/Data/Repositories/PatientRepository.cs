@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repositories
 {
-    public class PatientRepository : IPatientRepository, IPatientExist
+    public class PatientRepository : IPatientRepository
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -22,7 +21,20 @@ namespace API.Data.Repositories
             _mapper = mapper;
         }
 
-        public async Task<PatientDto> GetPatientDtoAsync(string pesel)
+        public async Task<PatientDto> AddAsync(PatientRegisterDto patientRegister)
+        {
+            var patient = _mapper.Map<Patient>(patientRegister);
+            _context.Patients.Add(patient);
+            await SaveAllAsync();
+            return _mapper.Map<PatientDto>(patient);
+        }
+
+        public async Task<Patient> GetByIdAsync(int id)
+        {
+            return await _context.Patients.SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<PatientDto> GetDtoByPeselAsync(string pesel)
         {
             return await _context.Patients
                 .Where(x => x.Pesel == pesel)
@@ -30,78 +42,59 @@ namespace API.Data.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<Patient> GetPatientByIdAsync(int id)
+        public async Task<PatientDto> GetDtoByIdAsync(int id)
         {
-            return await _context.Patients.FindAsync(id);
+            return await _context.Patients
+                .Where(x => x.Id == id)
+                .ProjectTo<PatientDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
-
-        public async Task<PatientDto> GetPatientDtoByIdAsync(int id)
-        {
-            Patient patient = await GetPatientByIdAsync(id);
-            
-            return _mapper.Map<Patient, PatientDto>(patient);
-        }
-
-        public bool TryGetPatientDtoById(int id, out PatientDto patient)
-        {
-            Patient p = _context.Patients.Find(id);
-            patient = _mapper.Map<Patient, PatientDto>(p);
-            return patient != null;
-        }
-
-        public async Task<Patient> GetPatientByPeselAsync(string pesel)
-        {
-            return await _context.Patients.SingleOrDefaultAsync(x => x.Pesel == pesel);
-        }
-
-        public async Task<IEnumerable<PatientDto>> GetPatientDtosAsync()
+        
+        public async Task<IEnumerable<PatientDto>> GetListDtoAsync()
         {
             return await _context.Patients
                 .ProjectTo<PatientDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Patient>> GetPatientsAsync()
+        public async Task<PatientDto> DeleteAsync(int id)
         {
-            return await _context.Patients.ToListAsync();
+            var patient = await _context.Patients
+                .SingleOrDefaultAsync(x => x.Id == id);
+            if (patient != null)
+            {
+                var deletedPatient = _context.Patients.Remove(patient).Entity;
+                await SaveAllAsync();
+                return _mapper.Map<PatientDto>(deletedPatient);
+            }
+            return null;
         }
 
-        public async Task<bool> SaveAllAsync()
-        {   
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public void Update(Patient patient)
-        {
-            _context.Entry(patient).State = EntityState.Modified;
-        }
-
-        public Task<PatientDto> UpdateAsync(PatientDto patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Patient> AddPatientsAsync(PatientRegisterDto patientRegister)
-        {
-            Patient patient = _mapper.Map<PatientRegisterDto, Patient>(patientRegister);
-            _context.Patients.Add(patient);
-            await SaveAllAsync();
-            return patient;
-        }
-
-        public Task<Patient> UpdatePatientsAsync(PatientRegisterDto patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> AnyPatientsAsync(string pesel)
-        {
+        public async Task<bool> PeselExist(string pesel)
+        { 
             return await _context.Patients.AnyAsync(x => x.Pesel == pesel);
         }
 
-        public async Task<bool> PatientExist(int id)
+        public async Task<PatientDto> UpdateAsync(PatientDto updatedPatient)
         {
-            return await _context.Patients.FindAsync(id) != null;
+            var patient = await _context.Patients
+                .SingleOrDefaultAsync(x => x.Id == updatedPatient.Id);
+            if (patient != null)
+            {
+                patient.FirstName = updatedPatient.FirstName;
+                patient.LastName = updatedPatient.LastName;
+                patient.Pesel = updatedPatient.Pesel;
+                patient.DateOfBirth = updatedPatient.DateOfBirth;
+                patient.PlaceOfBirth = updatedPatient.PlaceOfBirth;
+
+                await SaveAllAsync();
+            }
+            return _mapper.Map<PatientDto>(patient);
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
