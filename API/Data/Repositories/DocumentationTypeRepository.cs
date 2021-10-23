@@ -101,6 +101,22 @@ namespace API.Data.Repositories
         public async Task<IEnumerable<DocumentationTypeDto>> GetListDtoAsync()
         {
             return await _context.DocumentationTypes
+                .Where(x => !x.IsUnused)
+                .ProjectTo<DocumentationTypeDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<DocumentationTypeDto>> GetUnusedListDtoAsync()
+        {
+            return await _context.DocumentationTypes
+                .Where(x => x.IsUnused)
+                .ProjectTo<DocumentationTypeDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<DocumentationTypeDto>> GetWithUnusedListDtoAsync()
+        {
+            return await _context.DocumentationTypes
                 .ProjectTo<DocumentationTypeDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

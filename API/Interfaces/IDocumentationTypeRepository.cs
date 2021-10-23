@@ -17,6 +17,8 @@ namespace API.Interfaces
         Task<DocumentationTypeDto> GetDtoByIdAsync(int id);
         Task<IEnumerable<DocumentationType>> GetListAsync();
         Task<IEnumerable<DocumentationTypeDto>> GetListDtoAsync();
+        Task<IEnumerable<DocumentationTypeDto>> GetUnusedListDtoAsync();
+        Task<IEnumerable<DocumentationTypeDto>> GetWithUnusedListDtoAsync();
 
         Task<bool> SaveAllAsync();
     }
