@@ -19,6 +19,8 @@ namespace API.Extensions
             services.AddScoped<IPatientExist, PatientRepository>();
             services.AddScoped<IDocumentationRepository, DocumentationRepository>();
             services.AddScoped<IDocumentationTypeRepository, DocumentationTypeRepository>();
+            services.AddScoped<IHealthFacilityRepository, HealthFacilityRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

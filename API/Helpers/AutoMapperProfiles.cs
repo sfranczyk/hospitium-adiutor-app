@@ -9,11 +9,29 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AppUser, MemberDTO>();
-            CreateMap<Patient, PatientDto>();
+            
+            CreateMap<Patient, PatientDto>()
+                .ForMember(dest => dest.HealthFacility,
+                    opt => opt.MapFrom(src => src.Department.HealthFacility));
             CreateMap<PatientRegisterDto, Patient>();
+
+            CreateMap<AddDepartmentDto, Department>();
+            CreateMap<DepartmentDto, Department>();
+            CreateMap<Department, DepartmentDto>();
+            CreateMap<Department, DepartmentNameDto>();
+            CreateMap<string, Department>().ForMember(dest => dest.Name,
+                opt => opt.MapFrom(src => src));
+
+            CreateMap<AddHealthFacilityDto, HealthFacility>();
+            CreateMap<UpdateHealthFacilityDto, HealthFacility>();
+            CreateMap<HealthFacilityDto, HealthFacility>();
+            CreateMap<HealthFacility, HealthFacilityDto>();
+            CreateMap<HealthFacility, HealthFacilityNameDto>();
+
             CreateMap<AddDocumentationTypeDto, DocumentationType>();
             CreateMap<DocumentationType, DocumentationTypeDto>();
             CreateMap<DocumentationTypeDto, DocumentationType>();
+            
             CreateMap<AddDocumentationDto, Documentation>();
             CreateMap<Documentation, DocumentationDto>();
         }

@@ -64,7 +64,7 @@ namespace API.Data.Repositories
                 return null;
             var deletedType = _context.DocumentationTypes.Remove(type).Entity;
             await SaveAllAsync();
-            return _mapper.Map<DocumentationTypeDto>(deletedType); ;
+            return _mapper.Map<DocumentationTypeDto>(deletedType);
         }
 
         public async Task<DocumentationType> GetByIdAsync(int id)
