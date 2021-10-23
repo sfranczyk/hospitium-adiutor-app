@@ -12,6 +12,7 @@ namespace API.Interfaces
         Task<bool> UpdateAsync(DocumentationType type);
         Task<bool> UpdateAsync(DocumentationTypeDto type);
         Task<DocumentationTypeDto> DeleteAsync(int id);
+        Task<DocumentationTypeDto> RestoreAsync(int id);
         Task<DocumentationType> GetByIdAsync(int id);
         Task<DocumentationTypeDto> GetDtoByIdAsync(int id);
         Task<IEnumerable<DocumentationType>> GetListAsync();
