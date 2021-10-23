@@ -62,9 +62,20 @@ namespace API.Data.Repositories
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (type == null)
                 return null;
-            var deletedType = _context.DocumentationTypes.Remove(type).Entity;
+            type.IsUnused = true;
             await SaveAllAsync();
-            return _mapper.Map<DocumentationTypeDto>(deletedType);
+            return _mapper.Map<DocumentationTypeDto>(type);
+        }
+
+        public async Task<DocumentationTypeDto> RestoreAsync(int id)
+        {
+            var type = await _context.DocumentationTypes
+                .SingleOrDefaultAsync(x => x.Id == id);
+            if (type == null)
+                return null;
+            type.IsUnused = false;
+            await SaveAllAsync();
+            return _mapper.Map<DocumentationTypeDto>(type);
         }
 
         public async Task<DocumentationType> GetByIdAsync(int id)

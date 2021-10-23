@@ -48,7 +48,8 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, DocumentationTypeDto documentation)
         {
-            if(await _typeRepository.GetByIdAsync(id) == null) return BadRequest("Documentation type does not exist");
+            if(await _typeRepository.GetByIdAsync(id) == null) 
+                return BadRequest("Documentation type does not exist");
 
             await _typeRepository.UpdateAsync(documentation);
 
@@ -59,9 +60,20 @@ namespace API.Controllers
         public async Task<ActionResult<DocumentationTypeDto>> Delete(int id)
         {
             if (await _typeRepository.GetByIdAsync(id) == null) 
-                return BadRequest("Documentation does not exist");
+                return BadRequest("Documentation type does not exist");
 
             var documentation = _typeRepository.DeleteAsync(id);
+
+            return Ok(documentation);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<DocumentationTypeDto>> Restore(int id)
+        {
+            if (await _typeRepository.GetByIdAsync(id) == null)
+                return BadRequest("Documentation type does not exist");
+
+            var documentation = _typeRepository.RestoreAsync(id);
 
             return Ok(documentation);
         }
