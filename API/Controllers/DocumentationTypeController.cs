@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using API.Interfaces;
@@ -30,6 +31,28 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<DocumentationTypeDto>>> GetList()
         {
             var types = await _typeRepository.GetListDtoAsync();
+            if (types == null)
+            {
+                return NotFound();
+            }
+            return Ok(types);
+        }
+
+        [HttpGet("unused")]
+        public async Task<ActionResult<IEnumerable<DocumentationTypeDto>>> GetUnusedList()
+        {
+            var types = await _typeRepository.GetUnusedListDtoAsync();
+            if (types == null)
+            {
+                return NotFound();
+            }
+            return Ok(types);
+        }
+
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<DocumentationTypeDto>>> GetWithUnusedList()
+        {
+            var types = await _typeRepository.GetWithUnusedListDtoAsync();
             if (types == null)
             {
                 return NotFound();
