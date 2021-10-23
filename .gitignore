@@ -455,6 +455,5 @@ $RECYCLE.BIN/
 
 appsettings.json
 
-*.db
-
 JSONGenerator
+API/managementofpatientscareapp.db
