@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using API.Models.Dto;
 using API.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,7 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<WorkerDto>>> GetUsers()
         {
             var users = await _userRepository.GetMembersAsync();
 
@@ -29,7 +28,7 @@ namespace API.Controllers
         }
        
         [HttpGet("{username}")]
-        public async Task<ActionResult<MemberDTO>> GetUser(string username)
+        public async Task<ActionResult<WorkerDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
         }

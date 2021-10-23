@@ -5,7 +5,6 @@ using API.Interfaces;
 using API.Models;
 using API.Models.Dto;
 using AutoMapper;
-using AutoMapper.Internal;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
