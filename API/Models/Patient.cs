@@ -1,4 +1,5 @@
 using System;
+using API.Enums;
 using API.Extensions;
 
 namespace API.Models
@@ -9,7 +10,7 @@ namespace API.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Pesel { get; set; }
-        public string Gender { get; set; }
+        public Sex Sex { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
         public Department Department { get; set; }

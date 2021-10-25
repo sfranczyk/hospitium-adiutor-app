@@ -3,7 +3,7 @@
     "FirstName": "Mullen",
     "LastName": "Rosales",
     "Pesel": "78720066895",
-    "Gender": "male",
+    "Sex": 0,
     "PlaceOfBirth": "Bowmansville",
     "DateOfBirth": "1965-01-21"
   },
@@ -11,7 +11,7 @@
     "FirstName": "Martinez",
     "LastName": "Kelly",
     "Pesel": "53465486335",
-    "Gender": "male",
+    "Sex": 0,
     "PlaceOfBirth": "Brule",
     "DateOfBirth": "1962-05-15"
   },
@@ -19,7 +19,7 @@
     "FirstName": "Heath",
     "LastName": "Bolton",
     "Pesel": "16134827144",
-    "Gender": "male",
+    "Sex": 0,
     "PlaceOfBirth": "Wedgewood",
     "DateOfBirth": "1975-05-24"
   },
@@ -27,7 +27,7 @@
     "FirstName": "Adkins",
     "LastName": "Franco",
     "Pesel": "85900799525",
-    "Gender": "male",
+    "Sex": 0,
     "PlaceOfBirth": "Gracey",
     "DateOfBirth": "1961-05-26"
   },
@@ -35,7 +35,7 @@
     "FirstName": "Pena",
     "LastName": "Moran",
     "Pesel": "90187825370",
-    "Gender": "male",
+    "Sex": 0,
     "PlaceOfBirth": "Snyderville",
     "DateOfBirth": "1971-04-26"
   },
@@ -43,7 +43,7 @@
     "FirstName": "Amalia",
     "LastName": "Page",
     "Pesel": "29807300090",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Riverton",
     "DateOfBirth": "1993-10-21"
   },
@@ -51,7 +51,7 @@
     "FirstName": "Audrey",
     "LastName": "House",
     "Pesel": "82017237818",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Martell",
     "DateOfBirth": "1983-06-13"
   },
@@ -59,7 +59,7 @@
     "FirstName": "Lila",
     "LastName": "Lawson",
     "Pesel": "97311843177",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Brazos",
     "DateOfBirth": "1998-09-26"
   },
@@ -67,7 +67,7 @@
     "FirstName": "Rhonda",
     "LastName": "Dunn",
     "Pesel": "27383259188",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Wheatfields",
     "DateOfBirth": "1973-02-21"
   },
@@ -75,7 +75,7 @@
     "FirstName": "Rachel",
     "LastName": "Morris",
     "Pesel": "98441837576",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Geyserville",
     "DateOfBirth": "1966-04-26"
   },
@@ -83,7 +83,7 @@
     "FirstName": "Phoebe",
     "LastName": "Garner",
     "Pesel": "67701064861",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Kenwood",
     "DateOfBirth": "1966-06-03"
   },
@@ -91,7 +91,7 @@
     "FirstName": "Shawn",
     "LastName": "Harvey",
     "Pesel": "36896266501",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Trona",
     "DateOfBirth": "1972-10-19"
   },
@@ -99,7 +99,7 @@
     "FirstName": "Alyson",
     "LastName": "Abbott",
     "Pesel": "10516113059",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Caberfae",
     "DateOfBirth": "1954-06-06"
   },
@@ -107,7 +107,7 @@
     "FirstName": "Jackie",
     "LastName": "Miranda",
     "Pesel": "77060736352",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Waukeenah",
     "DateOfBirth": "1978-07-29"
   },
@@ -115,7 +115,7 @@
     "FirstName": "Estela",
     "LastName": "Dillard",
     "Pesel": "25512233996",
-    "Gender": "female",
+    "Sex": 1,
     "PlaceOfBirth": "Ribera",
     "DateOfBirth": "1961-03-10"
   }
