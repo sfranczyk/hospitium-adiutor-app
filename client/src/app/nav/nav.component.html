@@ -4,6 +4,18 @@
 
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="accountService.currentUser$ | async" >
+
+        <li class="nav-item dropdown" dropdown>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+            Health facility
+          </a>
+          <div class="dropdown-menu mt-2" *dropdownMenu>
+            <a class="dropdown-item" routerLink='/health-facility' routerLinkActive='active'>List</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink='/health-facility/add' routerLinkActive='active'>Create</a>
+          </div>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink='/members' routerLinkActive='active'>Members</a>
         </li>

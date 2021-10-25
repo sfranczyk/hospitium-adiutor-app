@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div *ngIf="!editMode" style='text-align: center;'>
+      <div class="header row">
+        <h1 class="col-6 col-md-4">Health facilities</h1>
+        <div class="col col-12 col-md-8 text-right">
+            <button (click)="editToggle()" class="btn btn-success btn-lg mr-2">Create</button>
+        </div>
+
+      </div>
+        <div *ngFor="let hf of healthFacilityList; let i = index">
+            <div class="cell">
+              <div class="cell-header">
+                <h4>{{hf.name}}</h4>
+                City: <strong>{{hf.city}}</strong>
+              </div>
+              <hr>
+              <div class="cell-content">
+                <div>
+                  Departments: <strong>{{departmentsAsString(hf.departments)}}</strong>
+                </div>
+                <div class="cell-div-action">
+                  <button type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(hf)">
+                    <i class="bi bi-pen"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btn-circle btn-md" (click)="deleteHealthFacility(hf, i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+    </div>
+
+    <div *ngIf="editMode" class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-hf-add (cancelRegister)="cancelEditMode($event)" [hfEdit]="hfToEdit"></app-hf-add>
+            </div>
+        </div>
+    </div>
+</div>
