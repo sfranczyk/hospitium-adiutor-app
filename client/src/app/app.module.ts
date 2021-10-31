@@ -1,6 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,12 +11,15 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
-import { SharedModule } from './_modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { HealthFacilityModule } from './health-facility/health-facility.module';
+import { PatientModule } from './patient/patient.module';
+import { UsefullsesModule } from './usefullses/usefullses.module';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from './_modules/shared.module';
 
 
 @NgModule({
@@ -36,11 +38,13 @@ import { HealthFacilityModule } from './health-facility/health-facility.module';
   ],
   imports: [
     HealthFacilityModule,
+    PatientModule,
+    UsefullsesModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     FormsModule,
+    BrowserAnimationsModule,
     SharedModule
   ],
   providers: [

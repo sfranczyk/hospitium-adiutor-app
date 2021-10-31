@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Patient } from '../models/patient.model';
 
@@ -9,7 +10,7 @@ import { Patient } from '../models/patient.model';
 })
 export class PatientService {
 
-  endpoint = environment.apiOrigin + 'patient';
+  endpoint = environment.apiOrigin + 'patients';
 
   constructor(private http: HttpClient) { }
 
@@ -18,19 +19,37 @@ export class PatientService {
   }
 
   getAll(): Observable<Patient[]>{
-    return this.http.get<Patient[]>(this.endpoint);
+    return this.http.get<Patient[]>(this.endpoint).pipe(
+      map(patients => (
+        patients.map(patient => 
+          ({...patient, dateOfBirth: new Date(patient.dateOfBirth)})
+        )
+      ))
+    );
   }
 
   get(id: number): Observable<Patient>{
-    return this.http.get<Patient>(`${this.endpoint}/${id}`);
+    return this.http.get<Patient>(`${this.endpoint}/${id}`).pipe(
+      map(patient =>
+        ({...patient, dateOfBirth: new Date(patient.dateOfBirth)})
+      )
+    );
   }
 
   upadte(model: Patient): Observable<Patient>{
     console.log(model);
-    return this.http.put<Patient>(`${this.endpoint}/${model.id}`, model);
+    return this.http.put<Patient>(`${this.endpoint}/${model.id}`, model).pipe(
+      map(patient =>
+        ({...patient, dateOfBirth: new Date(patient.dateOfBirth)})
+      )
+    );
   }
 
   delete(id: number): Observable<Patient>{
-    return this.http.delete<Patient>(`${this.endpoint}/${id}`);
+    return this.http.delete<Patient>(`${this.endpoint}/${id}`).pipe(
+      map(patient =>
+        ({...patient, dateOfBirth: new Date(patient.dateOfBirth)})
+      )
+    );
   }
 }

@@ -1,0 +1,20 @@
+<div class="d-inline-flex mb-3" [formGroup]="fg">
+  <div class="p-2">
+    <h5>Day:</h5>
+    <select class="select day form-control" formControlName="day" >
+      <option *ngFor="let day of days" [value]="day">{{day}}</option>
+    </select>
+  </div>
+  <div class="p-2">
+    <h5>Month:</h5>
+    <select class="select month form-control" formControlName="month">
+      <option *ngFor="let month of months" [value]="month">{{month}}</option>
+    </select>
+  </div>
+  <div class="p-2">
+    <h5>Year:</h5>
+    <select class="select year form-control" formControlName="year">
+      <option *ngFor="let year of years" [value]="year">{{year}}</option>
+    </select>
+  </div>
+</div>

@@ -8,9 +8,9 @@ export interface Patient{
     lastName: string;
     pesel: string;
     sex: Sex;
-    age: number;
+    age?: number;
     dateOfBirth: Date;
     placeOfBirth: string;
-    healthFacility: HealthFacility;
-    department: DepartmentDetails;
+    healthFacility?: HealthFacility;
+    department?: DepartmentDetails;
 }

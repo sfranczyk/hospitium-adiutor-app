@@ -1,5 +1,6 @@
 <form #addForm='ngForm' (ngSubmit)="send()" autocomplete="off" [formGroup]="hfFormGroup">
-    <h2 class="text-center text-primary">Add new Health facility</h2>
+    <h2 class="text-center text-primary" *ngIf="!editMode">Add new Health facility</h2>
+    <h2 class="text-center text-primary" *ngIf="editMode">Edit health facility</h2>
     <hr>
     <div class="form-group">
         <input type="text" class="form-control" name="name" formControlName="name" placeholder="Name">

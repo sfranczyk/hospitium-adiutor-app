@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DepartmentDetails } from '../../models/department.model';
 import { HealthFacility } from '../../models/health-facility.model';
@@ -15,7 +15,7 @@ export class HfListComponent implements OnInit {
   healthFacilityList: HealthFacility[] = [];
   hfToEdit: HealthFacility | undefined;
 
-  constructor(private hfService: HealthFacilityService, private toastr: ToastrService) { }
+  constructor(private hfService: HealthFacilityService, private toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getData();
@@ -37,7 +37,7 @@ export class HfListComponent implements OnInit {
     this.healthFacilityList.splice(index, 1);
   }
 
-  editToggle(hf?: HealthFacility) {
+  editToggle(hf: HealthFacility) {
     this.hfToEdit = hf;
     this.editMode = !this.editMode;
   }
@@ -49,5 +49,9 @@ export class HfListComponent implements OnInit {
 
   departmentsAsString(list: DepartmentDetails[] | string[]): string {
     return list.map(x => (x as DepartmentDetails).name).join(', ');
+  }
+
+  navigateToAdd(){
+    this.router.navigate(['add'], { relativeTo: this.activatedRoute });
   }
 }

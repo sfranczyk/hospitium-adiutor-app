@@ -1,0 +1,32 @@
+<form #addForm='ngForm' (ngSubmit)="onSubmit()" autocomplete="off" [formGroup]="patientFormGroup">
+    <h2 class="text-center text-primary" *ngIf="!editMode">Register new Patient</h2>
+    <h2 class="text-center text-primary" *ngIf="editMode">Edit patient {{pateintEdit?.firstName}} {{pateintEdit?.lastName}}</h2>
+    <hr>
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="pesel" placeholder="PESEL">
+    </div>
+    <div class="form-group">
+        <select class="form-control" formControlName="sex">
+            <option>Man</option>
+            <option>Woman</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="placeOfBirth" placeholder="Place of Birth">
+    </div>
+    <div class="form-group">
+        <app-select-date [startDate]="this.pateintEdit?.dateOfBirth" #dateOfBirth></app-select-date>
+    </div>
+
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Register</button>
+        <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Update</button>
+        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>
