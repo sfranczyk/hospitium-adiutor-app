@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Sex } from 'src/app/_enums/sex.enum';
 import { Patient } from '../../models/patient.model';
 
@@ -9,9 +9,9 @@ import { Patient } from '../../models/patient.model';
 })
 export class PatientCardComponent implements OnInit {
   @Input() patientData!: Patient;
-
-  editMode = false;
-  showMode = false;
+  @Input() showMode = false;
+  @Output() eventEditPatient: EventEmitter<Patient> = new EventEmitter();
+  @Output() eventShowMore: EventEmitter<boolean> = new EventEmitter();
 
   sex = {
     [Sex.Man]: 'Man',
@@ -24,11 +24,7 @@ export class PatientCardComponent implements OnInit {
 
   
   editToggle() {
-    this.editMode = !this.editMode;
+    // this.editMode = !this.editMode;
+    this.eventEditPatient.emit(this.patientData);
   }
-
-  cancelEditMode(event: boolean) {
-    this.editMode = event;
-  }
-
 }
