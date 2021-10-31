@@ -10,13 +10,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UsefullsesModule } from '../usefullses/usefullses.module';
 import { PatientSearchComponent } from './components/patient-search/patient-search.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
+import { PatientManagementComponent } from './components/patient-management/patient-management.component';
 
 
 @NgModule({
   declarations: [
     PatientAddComponent,
     PatientSearchComponent,
-    PatientCardComponent
+    PatientCardComponent,
+    PatientManagementComponent
   ],
   imports: [
     CommonModule,

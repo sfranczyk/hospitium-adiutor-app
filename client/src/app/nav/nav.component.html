@@ -16,9 +16,17 @@
           </div>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink='/patient/add' routerLinkActive='active'>Patients</a>
+        <li class="nav-item dropdown" dropdown>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+            Patients
+          </a>
+          <div class="dropdown-menu mt-2" *dropdownMenu>
+            <a class="dropdown-item" routerLink='/patient/search' routerLinkActive='active'>Search</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink='/patient/add' routerLinkActive='active'>Register new</a>
+          </div>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
         </li>

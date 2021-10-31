@@ -1,9 +1,10 @@
 <div class="container mt-5">
-    <div class="card" *ngIf="!editMode">
+    <div class="card">
       <div class="card-header patient-card-header">
         <h4>{{patientData.firstName}} {{patientData.lastName}}, {{patientData.pesel}}</h4>
-        <button type="button" class="btn btn-primary btn-circle mr-2" (click)="editToggle()">
-          <i class="bi bi-pen"></i>
+        <button type="button" class="btn btn-primary btn-circle mr-2" (click)="emitClick()">
+          <i *ngIf="standardMode" class="bi bi-pen"></i>
+          <i *ngIf="!standardMode" class="bi bi-arrow-right-square"></i>
         </button>
       </div>
     
@@ -22,13 +23,5 @@
           <div class="col"> City of Birth: {{patientData.placeOfBirth}} <hr> </div>
         </div>
       </div>
-    </div>
-    
-    <div *ngIf="editMode" class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <app-patient-add (cancelRegister)="cancelEditMode($event)" [pateintEdit]="patientData"></app-patient-add>
-            </div>
-        </div>
     </div>
 </div>

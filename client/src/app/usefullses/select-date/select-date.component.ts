@@ -12,8 +12,6 @@ export class SelectDateComponent implements OnInit {
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   years = Array.from({length: 150}, (_, i) => new Date().getFullYear() - i);
 
-  selectedMonth = this.months[0];
-
   daysInMonth: {[id: string] : number} = {
     January: 31,
     February: 29,
@@ -36,7 +34,7 @@ export class SelectDateComponent implements OnInit {
 
   get date(): Date {
     const fgc = this.fg.controls;
-    return new Date(fgc.year.value, this.months.findIndex(m => m == fgc.month.value), fgc.day.value);
+    return new Date(fgc.year.value, this.months.findIndex(m => m === fgc.month.value), fgc.day.value);
   }
 
   set date(v: Date) {
@@ -50,7 +48,6 @@ export class SelectDateComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    console.log(this.startDate);
     let setDate = this.startDate ? {
       day: [this.startDate.getDate()],
       month: [this.months[this.startDate.getMonth()]],
@@ -60,7 +57,6 @@ export class SelectDateComponent implements OnInit {
       month: [this.months[0]],
       year: [this.years[0]]
     }
-    console.log(setDate);
     this.fg = this.fb.group(setDate);
   }
 }

@@ -9,9 +9,9 @@ import { Patient } from '../../models/patient.model';
 })
 export class PatientCardComponent implements OnInit {
   @Input() patientData!: Patient;
-  @Input() showMode = false;
-  @Output() eventEditPatient: EventEmitter<Patient> = new EventEmitter();
-  @Output() eventShowMore: EventEmitter<boolean> = new EventEmitter();
+  @Input() standardMode = true;
+  @Output() eventButton: EventEmitter<boolean> = new EventEmitter();
+  // @Output() eventShowMore: EventEmitter<boolean> = new EventEmitter();
 
   sex = {
     [Sex.Man]: 'Man',
@@ -19,12 +19,10 @@ export class PatientCardComponent implements OnInit {
   }
 
   constructor() {}
-
   ngOnInit(): void {}
 
-  
-  editToggle() {
-    // this.editMode = !this.editMode;
-    this.eventEditPatient.emit(this.patientData);
+  emitClick() {
+    this.eventButton.emit(true);
   }
+  
 }

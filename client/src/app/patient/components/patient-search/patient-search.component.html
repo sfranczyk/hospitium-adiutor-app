@@ -30,7 +30,7 @@
   </div>
 
   <div *ngFor="let patient of filteredPatients">
-    <app-patient-card [patientData]="patient"></app-patient-card>
+    <app-patient-card [patientData]="patient" [standardMode]="false" (eventButton)="navigateToMoreOption(patient)"></app-patient-card>
   </div>
 
   <hr>

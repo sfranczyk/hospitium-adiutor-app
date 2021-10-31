@@ -36,9 +36,7 @@ export class PatientAddComponent implements OnInit {
     private fb: FormBuilder, 
     private router: Router,
     private activatedRoute: ActivatedRoute, 
-  ) {
-    
-  }
+  ) { }
 
   onSubmit(): void {
     console.log(this.patientFormGroup.controls);

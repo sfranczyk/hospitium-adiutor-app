@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Patient } from '../../models/patient.model';
 import { PatientService } from '../../service/patient.service';
 
@@ -13,7 +14,7 @@ export class PatientSearchComponent implements OnInit {
   private patients: Patient[] = [];
   public filteredPatients: Patient[] = [];
 
-  constructor(private service: PatientService, private fb: FormBuilder) { }
+  constructor(private service: PatientService, private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -36,5 +37,9 @@ export class PatientSearchComponent implements OnInit {
     } else if (fgc.firstName.valid && fgc.lastName.valid) {
       this.filteredPatients = this.patients.filter(x => x.firstName === fgc.firstName.value && x.lastName === fgc.lastName.value);
     }
+  }
+
+  navigateToMoreOption(patient: Patient){
+    this.router.navigate(['..', 'more'], {relativeTo: this.activatedRoute, state: {patient} });
   }
 }
