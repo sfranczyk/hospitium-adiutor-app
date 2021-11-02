@@ -1,0 +1,55 @@
+<form #addForm='ngForm' (ngSubmit)="onSubmit()" autocomplete="off" [formGroup]="typeFormGroup">
+  <h2 class="text-center text-primary" *ngIf="!editMode">Add new documentation type</h2>
+  <h2 class="text-center text-primary" *ngIf="editMode">Edit documentation type</h2>
+  <div class="card p-2">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Name">
+    </div>
+
+    <ng-container formArrayName="description">
+      <ng-container *ngFor="let element of description.controls; let i = index">
+        <div class="card m-1 p-2">
+          <div class="form-group" [formGroupName]="i">
+            <select class="form-control" formControlName="type">
+              <option *ngFor="let item of descriptionElementList" [value]='item.number'>{{ item.name }}</option>
+            </select>
+          </div>
+
+          <container-element [ngSwitch]="element.value.type" [formGroupName]="i">
+            <div *ngSwitchCase="DescriptionElement.TextFiled">
+              <div class="form-group">
+                <input type="text" class="form-control mb-1" placeholder="Description text">
+                <textarea class="form-control text-center" rows="2" readonly> Here worker will write text </textarea>
+              </div>
+            </div>
+            <div *ngSwitchCase="DescriptionElement.Select">
+              <div class="form-group">
+                <input type="text" class="form-control mb-1" placeholder="Description text">
+                <!-- <ng-container *ngFor="let item of description.controls.select.constrols; let i = index">
+                  <div class="form-inline" >
+                      <div class="form-group mb-2">
+                          <input [formControlName]="i" type="text" class="form-control" name="depatrment-name" placeholder="Department name">
+                      </div>
+                      <i class="icon-trash bi bi-trash mb-2" (click)="deleteDepartment(i)"></i>
+                  </div>
+              </ng-container> -->
+              </div>
+            </div>
+            <div *ngSwitchCase="DescriptionElement.Radios">.c.</div>
+          </container-element>
+
+        </div>
+
+
+      </ng-container>
+      <button type="button" class="btn btn-success btn-circle btn-md" (click)="addElement()"><i
+          class="bi bi-plus"></i></button>
+    </ng-container>
+
+  </div>
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Add</button>
+    <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Update</button>
+    <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+  </div>
+</form>

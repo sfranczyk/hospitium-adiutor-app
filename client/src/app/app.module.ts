@@ -20,6 +20,7 @@ import { PatientModule } from './patient/patient.module';
 import { UsefullsesModule } from './usefullses/usefullses.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './_modules/shared.module';
+import { DocumentationModule } from './documentation/documentation.module';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SharedModule } from './_modules/shared.module';
   imports: [
     HealthFacilityModule,
     PatientModule,
+    DocumentationModule,
     UsefullsesModule,
     BrowserModule,
     AppRoutingModule,
