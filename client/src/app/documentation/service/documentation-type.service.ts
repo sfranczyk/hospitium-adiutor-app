@@ -7,7 +7,7 @@ import { DocumentationType } from '../models/documentation-type.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DocumentationTypeTypeService {
+export class DocumentationTypeService {
   readonly endpoint = environment.apiOrigin + 'documentationtype';
   readonly endpointGetAll = environment.apiOrigin + 'documentationtype/all';
   readonly endpointGetUnused = environment.apiOrigin + 'documentationtype/unused';
@@ -15,31 +15,31 @@ export class DocumentationTypeTypeService {
   constructor(private http: HttpClient) { }
 
   post(model: DocumentationType): Observable<DocumentationType>{
-    return this.http.post<DocumentationType>('${this.endpoint}', model);
+    return this.http.post<DocumentationType>(this.endpoint, model);
   }
 
   get(id: number): Observable<DocumentationType>{
     return this.http.get<DocumentationType>(`${this.endpoint}/${id}`);
   }
 
-  getList(patientId: number): Observable<DocumentationType[]>{
-    return this.http.get<DocumentationType[]>(`${this.endpoint}/${patientId}`);
+  getList(): Observable<DocumentationType[]>{
+    return this.http.get<DocumentationType[]>(this.endpoint);
   }
 
-  getListAll(patientId: number): Observable<DocumentationType[]>{
-    return this.http.get<DocumentationType[]>(`${this.endpointGetAll}/${patientId}`);
+  getListAll(): Observable<DocumentationType[]>{
+    return this.http.get<DocumentationType[]>(this.endpointGetAll);
   }
 
-  getListUnused(patientId: number): Observable<DocumentationType[]>{
-    return this.http.get<DocumentationType[]>(`${this.endpointGetUnused}/${patientId}`);
+  getListUnused(): Observable<DocumentationType[]>{
+    return this.http.get<DocumentationType[]>(this.endpointGetUnused);
   }
 
   upadte(model: DocumentationType): Observable<DocumentationType>{
     return this.http.put<DocumentationType>(`${this.endpoint}/${model.id}`, model);
   }
 
-  restore(model: DocumentationType): Observable<DocumentationType>{
-    return this.http.patch<DocumentationType>(`${this.endpoint}/${model.id}`, model.id);
+  restore(id: number): Observable<DocumentationType>{
+    return this.http.patch<DocumentationType>(`${this.endpoint}/${id}`, id);
   }  
 
   delete(id: number): Observable<DocumentationType>{

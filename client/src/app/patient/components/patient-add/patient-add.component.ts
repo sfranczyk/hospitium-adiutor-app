@@ -39,7 +39,6 @@ export class PatientAddComponent implements OnInit {
   ) { }
 
   onSubmit(): void {
-    console.log(this.patientFormGroup.controls);
     let patient = this.patientFormGroup.value as Patient;
     patient.sex = this.sex[patient.sex] as Sex;
     patient.dateOfBirth = this.dateOfBirth.date;
@@ -83,7 +82,7 @@ export class PatientAddComponent implements OnInit {
 
   cancel() {
     if(this.redirect){
-      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+      this.router.navigate(['..'], { relativeTo: this.activatedRoute });
     }
     this.cancelRegister.emit(false);
   }

@@ -3,53 +3,92 @@
   <h2 class="text-center text-primary" *ngIf="editMode">Edit documentation type</h2>
   <div class="card p-2">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Name">
+      <input type="text" class="form-control" placeholder="Name" formControlName="name">
     </div>
 
     <ng-container formArrayName="description">
       <ng-container *ngFor="let element of description.controls; let i = index">
         <div class="card m-1 p-2">
-          <div class="form-group" [formGroupName]="i">
-            <select class="form-control" formControlName="type">
-              <option *ngFor="let item of descriptionElementList" [value]='item.number'>{{ item.name }}</option>
-            </select>
+          <div class="card-header">
+            <div class="form-group form-inline d-flex justify-content-between" [formGroupName]="i">
+              <h5>{{i + 1}}. </h5>
+              <div class="form-inline">
+                <select class="form-control" formControlName="type" (change)="defineElement(element)">
+                  <option *ngFor="let item of descriptionElementList" [value]='item.number'>{{ item.name }}</option>
+                </select>
+              </div>
+
+              <button type="button" class="btn btn-danger btn-circle btn-md ml-1 text-left"
+                (click)="deleteElement(i)"><i class="icon-delete bi bi-x"></i></button>
+            </div>
           </div>
 
-          <container-element [ngSwitch]="element.value.type" [formGroupName]="i">
-            <div *ngSwitchCase="DescriptionElement.TextFiled">
-              <div class="form-group">
-                <input type="text" class="form-control mb-1" placeholder="Description text">
-                <textarea class="form-control text-center" rows="2" readonly> Here worker will write text </textarea>
+          <div class="card-body">
+
+            <container-element [ngSwitch]="element.value.type" [formGroupName]="i">
+              <div *ngSwitchCase="DescriptionElement.TextFiled">
+                <div class="form-group">
+                  <input type="text" class="form-control mb-2" placeholder="Description text" formControlName="name">
+                  <textarea class="form-control text-center" rows="2" readonly> Here worker will write text </textarea>
+                </div>
               </div>
-            </div>
-            <div *ngSwitchCase="DescriptionElement.Select">
-              <div class="form-group">
-                <input type="text" class="form-control mb-1" placeholder="Description text">
-                <!-- <ng-container *ngFor="let item of description.controls.select.constrols; let i = index">
-                  <div class="form-inline" >
-                      <div class="form-group mb-2">
-                          <input [formControlName]="i" type="text" class="form-control" name="depatrment-name" placeholder="Department name">
+
+              <div *ngSwitchCase="DescriptionElement.Select">
+                <div class="form-group">
+                  <input type="text" class="form-control mb-1" placeholder="Description text" formControlName="name">
+                  <div class="form-inline d-flex justify-content-start">
+                    <button type="button" class="btn btn-info btn-circle btn-md mr-1 mt-1r"
+                      (click)='addSelector(element)'><i class="bi bi-plus-circle"></i></button>
+                    <ng-container formArrayName="selectors"
+                      *ngFor="let item of getSelectors(element).controls; let j = index">
+                      <div class="card text-white bg-primary mr-1 mt-1">
+                        <div class="form-inline">
+                          <input [formControlName]="j" type="text" class="form-control" name="depatrment-name"
+                            placeholder="Option {{j + 1}}">
+                          <i class="icon-delete bi bi-x-circle mx-1" (click)="deleteSelector(element, j)"></i>
+                        </div>
                       </div>
-                      <i class="icon-trash bi bi-trash mb-2" (click)="deleteDepartment(i)"></i>
+                    </ng-container>
                   </div>
-              </ng-container> -->
+                </div>
               </div>
-            </div>
-            <div *ngSwitchCase="DescriptionElement.Radios">.c.</div>
-          </container-element>
+
+              <div *ngSwitchCase="DescriptionElement.Radios">
+                <div class="form-group">
+                  <input type="text" class="form-control mb-1" placeholder="Description text" formControlName="name">
+                  <div class="form-inline d-flex justify-content-start">
+                    <button type="button" class="btn btn-info btn-circle btn-md mr-1 mt-1r"
+                      (click)='addSelector(element)'><i class="bi bi-plus-circle"></i></button>
+                    <ng-container formArrayName="selectors"
+                      *ngFor="let item of getSelectors(element).controls; let j = index">
+                      <div class="card text-white bg-primary mr-1 mt-1">
+                        <div class="form-inline">
+                          <input [formControlName]="j" type="text" class="form-control" name="depatrment-name"
+                            placeholder="Option {{j + 1}}">
+                          <i class="icon-delete bi bi-x-circle mx-1" (click)="deleteSelector(element, j)"></i>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+            </container-element>
+          </div>
 
         </div>
 
-
       </ng-container>
-      <button type="button" class="btn btn-success btn-circle btn-md" (click)="addElement()"><i
-          class="bi bi-plus"></i></button>
+      <div class="text-center">
+        <button type="button" class="button-add-element btn btn-success" (click)="addElement()"><i
+            class="bi bi-plus"></i></button>
+      </div>
     </ng-container>
 
   </div>
-  <div class="form-group text-center">
+  <div class="form-group text-center mt-2">
     <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Add</button>
     <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Update</button>
-    <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+    <button class="btn btn-secondary" (click)="cancel()" type="button">Cancel</button>
   </div>
 </form>

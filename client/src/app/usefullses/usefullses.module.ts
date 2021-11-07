@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../_modules/shared.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
+import { ChipsComponent } from './chips/chips.component';
 
 
 
@@ -18,7 +19,8 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserModule,
   ],
   declarations: [
-    SelectDateComponent
+    SelectDateComponent,
+    ChipsComponent
   ],
   exports: [
     SelectDateComponent

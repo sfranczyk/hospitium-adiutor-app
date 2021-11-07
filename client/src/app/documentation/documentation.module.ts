@@ -8,11 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DocTypeListComponent } from './components/doc-type-list/doc-type-list.component';
+import { DocAddComponent } from './components/doc-add/doc-add.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
   declarations: [
-    DocTypeAddComponent
+    DocTypeAddComponent,
+    DocTypeListComponent,
+    DocAddComponent
   ],
   imports: [
     CommonModule,

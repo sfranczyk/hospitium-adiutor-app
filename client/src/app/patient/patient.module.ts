@@ -11,6 +11,7 @@ import { UsefullsesModule } from '../usefullses/usefullses.module';
 import { PatientSearchComponent } from './components/patient-search/patient-search.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
 import { PatientManagementComponent } from './components/patient-management/patient-management.component';
+import { PatientListComponent } from './components/patient-list/patient-list.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PatientManagementComponent } from './components/patient-management/pati
     PatientAddComponent,
     PatientSearchComponent,
     PatientCardComponent,
-    PatientManagementComponent
+    PatientManagementComponent,
+    PatientListComponent
   ],
   imports: [
     CommonModule,

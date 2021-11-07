@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DescriptionElement } from '../../enums/description-element.enum';
 import { DocumentationType } from '../../models/documentation-type.model';
+import { DocumentationTypeService } from '../../service/documentation-type.service';
 
 @Component({
   selector: 'app-doc-type-add',
@@ -33,7 +34,8 @@ export class DocTypeAddComponent implements OnInit {
     private toastr: ToastrService, 
     private fb: FormBuilder, 
     private router: Router,
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
+    private service: DocumentationTypeService
   ) { }
 
   ngOnInit(): void {
@@ -52,40 +54,59 @@ export class DocTypeAddComponent implements OnInit {
       type: [DescriptionElement.Null, Validators.required]
     });
     this.description.push(departmentForm);
-    console.log(this.description.value);
   }
 
   deleteElement(index: number) {
     this.description.removeAt(index);
   }
 
-  // getElement(index: number) {
-  //   return this.description[index].selecters;
-  // }
+  defineElement(element: any) {
+    if (element.value.type === DescriptionElement.Null){
+      return;
+    }
+    element.addControl('name', this.fb.control('', Validators.required));
+    if (+element.value.type === DescriptionElement.Select || +element.value.type === DescriptionElement.Radios) {
+      element.addControl('selectors', this.fb.array([this.fb.control('', Validators.required)]));
+    }
+  }
 
-  // addSelecter(index: number) {
+  getSelectors(element: AbstractControl) {
+    return (element as FormGroup).controls['selectors'] as FormArray;
+  }
 
+  addSelector(element: any) {
+    const item = this.fb.control('', Validators.required);
+    this.getSelectors(element).push(item);
+  }
 
-  // }
+  deleteSelector(element: AbstractControl, index: number) {
+    this.getSelectors(element).removeAt(index);
+  }
 
   onSubmit(): void {
-    // console.log(this.patientFormGroup.controls);
-    // let patient = this.patientFormGroup.value as Patient;
-    // patient.sex = this.sex[patient.sex] as Sex;
-    // patient.dateOfBirth = this.dateOfBirth.date;
+    const correctedDescription = 
+      (this.typeFormGroup.value.description as {type: DescriptionElement, name?: string, selectors?: string[]}[])
+        .map(x => +x.type === DescriptionElement.TextFiled ? x : ({...x, selectors: x.selectors?.filter(s => s)}))
+        .filter(x => 
+          +x.type === DescriptionElement.TextFiled || 
+          (+x.type === DescriptionElement.Select || +x.type === DescriptionElement.Radios) && x.selectors?.length
+        );
+
+    const type = {
+      name: this.typeFormGroup.value.name,
+      jsonDescription: JSON.stringify(correctedDescription)
+    }
     
-    // patient.id = this.pateintEdit?.id; 
-    // const observ = this.editMode
-    //   ? this.service.upadte(patient) 
-    //   : this.service.post(patient);
+    console.log(type);
+    const observ = this.service.post(type);
     
-    // observ.subscribe(response => {
-    //   console.log(response);
-    //   this.cancel();
-    // }, error => {
-    //   console.log(error);
-    //   this.toastr.error(error.error);
-    // });
+    observ.subscribe(response => {
+      console.log(response);
+      this.cancel();
+    }, error => {
+      console.log(error);
+      this.toastr.error(error.error);
+    });
   }
 
 

@@ -1,0 +1,5 @@
+<div *ngFor="let patient of filteredPatients">
+  <div class="mt-4">
+    <app-patient-card [patientData]="patient" [standardMode]="false" (eventButton)="navigateToMoreOption(patient)"></app-patient-card>
+  </div>
+</div>
