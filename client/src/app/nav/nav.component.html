@@ -21,24 +21,17 @@
             Patients
           </a>
           <div class="dropdown-menu mt-2" *dropdownMenu>
+            <a class="dropdown-item" routerLink='/patient/list' routerLinkActive='active'>List</a>
             <a class="dropdown-item" routerLink='/patient/search' routerLinkActive='active'>Search</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" routerLink='/patient/add' routerLinkActive='active'>Register new</a>
           </div>
         </li>
 
-        <li class="nav-item dropdown" dropdown>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-            DocType
-          </a>
-          <div class="dropdown-menu mt-2" *dropdownMenu>
-            <a class="dropdown-item" routerLink='/documentation/type/add' routerLinkActive='active'>Add</a>
-          </div>
-        </li>
-
         <li class="nav-item">
-          <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
+          <a class="nav-link" routerLink='/documentation/type/list' routerLinkActive='active'>DocType</a>
         </li>
+        
       </ng-container>
       <li class="nav-item">
         <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>

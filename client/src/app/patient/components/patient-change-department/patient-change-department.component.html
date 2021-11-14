@@ -1,0 +1,43 @@
+<h2 class="text-center">Move the patient</h2>
+<div class="row move-container">
+
+  <div class="col card department-container">
+    <div class="card-header">
+      <h4>Current department</h4>
+    </div>
+    <div class="card-body">
+      <input class="form-control mb-1" type="text" [(ngModel)]="currentDepartment.name" disabled>
+      <div cdkDropList #leftList="cdkDropList" [cdkDropListData]="patientLeft" [cdkDropListConnectedTo]="[rightList]"
+        class="list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" cdkDragBoundary=".move-container" *ngFor="let item of patientLeft" cdkDrag>
+          {{item.firstName}} {{item.lastName}}, {{item.pesel}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-2 arrows">
+    <i class="bi bi-arrow-left-right"></i>
+  </div>
+
+  <div class="col card department-container">
+    <div class="card-header">
+      <h4>New department</h4>
+    </div>
+    <div class="card-body">
+      <select class="select form-control mb-1" [(ngModel)]="departmentId">
+        <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+      </select>
+
+      <div cdkDropList #rightList="cdkDropList" [cdkDropListData]="patientRight" [cdkDropListConnectedTo]="[leftList]"
+        class="list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" cdkDragBoundary=".move-container" *ngFor="let item of patientRight" cdkDrag>
+          {{item.firstName}} {{item.lastName}}, {{item.pesel}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group text-center mt-2">
+  <button class="btn btn-success mr-2" type="submit" (click)="submit()">Move</button>
+  <button class="btn btn-secondary" (click)="cancelEmit()" type="button">Cancel</button>
+</div>

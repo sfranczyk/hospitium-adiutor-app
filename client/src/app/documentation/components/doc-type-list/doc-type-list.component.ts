@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { ToastrService } from 'ngx-toastr';
+import { DocTypeListMode } from '../../enums/doc-type-list-mode.enutm';
 import { DocumentationType } from '../../models/documentation-type.model';
 import { DocumentationTypeService } from '../../service/documentation-type.service';
 
@@ -12,19 +13,34 @@ import { DocumentationTypeService } from '../../service/documentation-type.servi
   providers: [{ provide: BsDropdownConfig, useValue: { isAnimated: true } }]
 })
 export class DocTypeListComponent implements OnInit {
-  editMode = false;
+  @Input() selectMode?: boolean;
+  @Output() documentationTypeEmit: EventEmitter<DocumentationType | undefined> = new EventEmitter();
+
+  DocTypeListMode = DocTypeListMode;
+  mode = DocTypeListMode.List;
   documentationTypesList: DocumentationType[] = [];
   dtToEdit: DocumentationType | undefined;
 
-  constructor(private service: DocumentationTypeService, private toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private service: DocumentationTypeService,
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+    if (this.selectMode) {
+      this.mode = DocTypeListMode.SelectList;
+    }
     this.getData();
   }
 
   getData() {
     this.service.getListAll().subscribe(list =>
-      this.documentationTypesList = list
+      this.documentationTypesList = 
+        this.mode !== DocTypeListMode.SelectList 
+        ? list
+        : list.filter(x => !x.isUnused)
     );
   }
 
@@ -50,15 +66,25 @@ export class DocTypeListComponent implements OnInit {
 
   editToggle(dt: DocumentationType) {
     this.dtToEdit = dt;
-    this.editMode = !this.editMode;
+    this.mode = (this.mode === DocTypeListMode.List) ? DocTypeListMode.Edit : DocTypeListMode.List;
   }
 
   cancelEditMode(event: boolean) {
-    this.editMode = event;
+    if (!event) {
+      this.mode = DocTypeListMode.List;
+    }
     this.getData();
   }
 
   navigateToAdd(){
-    this.router.navigate(['add'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['..', 'add'], { relativeTo: this.activatedRoute });
+  }
+
+  returnTypeToFill(type: DocumentationType){
+    this.documentationTypeEmit.emit(type);
+  }
+
+  cancel() {
+    this.documentationTypeEmit.emit();
   }
 }

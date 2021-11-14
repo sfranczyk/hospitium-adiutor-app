@@ -9,5 +9,7 @@ namespace API.Models.Dto
         public string Content { get; set; }
         public int PatientId { get; set; }
         public int TypeId { get; set; }
+        public string Name { get; set; }
+        public string ContentDescription { get; set; }
     }
 }

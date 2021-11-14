@@ -1,16 +1,16 @@
 <div class="container mt-5">
-  <div *ngIf="!editMode" style='text-align: center;'>
+  <div *ngIf="mode !== DocTypeListMode.Edit" style='text-align: center;'>
     <div class="header row">
       <h1 class="col-8 text-left">Documentation types</h1>
-      <div class="col-md-4 text-right">
+      <div *ngIf="mode === DocTypeListMode.List" class="col-md-4 text-right">
           <button (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
       </div>
 
     </div>
       <div *ngFor="let dt of documentationTypesList; let i = index">
-          <div class="cell">
+          <div class="cell" [ngStyle]="{'background-color': dt.isUnused ? '#837778' : '#ffffff'}">
             <div class="cell-header">
-              <h4>{{dt.name}}</h4>
+              <h4 [ngStyle]="{'color': dt.isUnused ? '#000000' : '#839496'}">{{dt.name}}</h4>
             </div>
             <hr>
             <div class="cell-content d-flex justify-content-around">
@@ -18,14 +18,17 @@
                 <button type="button" class="btn btn-primary btn-circle btn-md mr-2">
                   <i class="bi bi-card-text"></i> Show description
                 </button>
-                <button type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(dt)">
+                <button *ngIf="mode === DocTypeListMode.List" type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(dt)">
                   <i class="bi bi-pen"></i> Edit
                 </button>
-                <button *ngIf="!dt.isUnused" type="button" class="btn btn-danger btn-circle btn-md" (click)="deleteDocumentationType(dt, i)">
+                <button *ngIf="mode === DocTypeListMode.List && !dt.isUnused" type="button" class="btn btn-danger btn-circle btn-md" (click)="deleteDocumentationType(dt, i)">
                   <i class="bi bi-file-earmark-excel"></i> Block use
                 </button>
-                <button *ngIf="dt.isUnused" type="button" class="btn btn-secondary btn-circle btn-md" (click)="restoreDocumentationType(dt, i)">
+                <button *ngIf="mode === DocTypeListMode.List && dt.isUnused" type="button" class="btn btn-secondary btn-circle btn-md" (click)="restoreDocumentationType(dt, i)">
                   <i class="bi bi-file-earmark-check"></i> Unlock use
+                </button>
+                <button *ngIf="mode === DocTypeListMode.SelectList" type="button" class="btn btn-success btn-circle btn-md" (click)="returnTypeToFill(dt)">
+                  <i class="bi bi-file-earmark-check"></i> Fill
                 </button>
               </div>
             </div>
@@ -34,11 +37,9 @@
         </div>
   </div>
 
-  <!-- <div *ngIf="editMode" class="container">
-      <div class="row justify-content-center">
-          <div class="col-4">
-              <app-hf-add (cancelRegister)="cancelEditMode($event)" [hfEdit]="hfToEdit"></app-hf-add>
-          </div>
-      </div>
-  </div> -->
+  <div *ngIf="mode === DocTypeListMode.SelectList" class="container text-center">
+    <button type="button" class="btn btn-secondary btn-circle btn-md" (click)="cancel()">
+      <i class="bi bi-file-earmark-check"></i> Cancel
+    </button>
+  </div>
 </div>

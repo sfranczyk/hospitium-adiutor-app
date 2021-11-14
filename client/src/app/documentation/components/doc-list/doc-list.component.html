@@ -1,0 +1,30 @@
+<div class="container">
+  <div style='text-align: center;'>
+    <div class="header row">
+      <h1 class="col-8 text-left">Documentations</h1>
+    </div>
+    <div *ngFor="let doc of documentationList; let i = index">
+
+        <div class="card mt-3 p-2">
+          <div class="row">
+            <div class="col text-left">
+              <h4>{{doc.name}} </h4>
+              <h5>Date:  {{ doc.created!.toDateString() }}</h5>
+            </div>
+            <div class="col text-right">
+              <button type="button" class="btn btn-primary btn-circle" (click)="showDocument()">
+                Read <i class="bi bi-arrow-right-square"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+  <div class="container text-center">
+    <button type="button" class="btn btn-secondary btn-circle btn-md  mt-3" (click)="cancel()">
+      <i class="bi bi-file-earmark-check"></i> Cancel
+    </button>
+  </div>
+</div>

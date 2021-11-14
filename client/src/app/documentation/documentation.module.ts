@@ -11,13 +11,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DocTypeListComponent } from './components/doc-type-list/doc-type-list.component';
 import { DocAddComponent } from './components/doc-add/doc-add.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { DocListComponent } from './components/doc-list/doc-list.component';
+import { DocDisplayComponent } from './components/doc-display/doc-display.component';
 
 
 @NgModule({
   declarations: [
     DocTypeAddComponent,
     DocTypeListComponent,
-    DocAddComponent
+    DocAddComponent,
+    DocListComponent,
+    DocDisplayComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +32,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     BrowserAnimationsModule,
     FormsModule,
     UsefullsesModule
+  ],
+  exports: [
+    DocTypeListComponent,
+    DocListComponent
   ]
 })
 export class DocumentationModule { }

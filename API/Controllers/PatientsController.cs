@@ -12,10 +12,12 @@ namespace API.Controllers
     public class PatientsController : BaseApiController
     {
         private readonly IPatientRepository _patientRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public PatientsController(IPatientRepository patientRepository)
+        public PatientsController(IPatientRepository patientRepository, IDepartmentRepository departmentRepository)
         {
             _patientRepository = patientRepository;
+            _departmentRepository = departmentRepository;
         }
 
         [HttpGet("{id}")]
@@ -56,15 +58,35 @@ namespace API.Controllers
             return Ok(patient);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, PatientDto updatedPatient)
+        [HttpPut]
+        public async Task<ActionResult> Put(PatientDto updatedPatient)
         {
-            if (await _patientRepository.GetByIdAsync(id) == null)
-                return BadRequest("Health Facility does not exist");
+            if (await _patientRepository.GetByIdAsync(updatedPatient.Id) == null)
+            {
+                var newPatient = await _patientRepository.AddAsync(updatedPatient);
+
+                return Created("/api/Patients/" + newPatient.Id, newPatient);
+            }
 
             var patient = await _patientRepository.UpdateAsync(updatedPatient);
 
             return Ok(patient);
+        }
+
+        [HttpPatch("change-department/{id}")]
+        public async Task<ActionResult> ChangeDepartment(int id, int departmentId)
+        {
+            var patient = await _patientRepository.GetByIdAsync(id);
+            if (patient == null)
+                return BadRequest("Patient does not exist");
+
+            var department = await _departmentRepository.GetByIdAsync(departmentId);
+            if (department == null)
+                return BadRequest("Department does not exist");
+
+            await _patientRepository.ChangeDepartmentAsync(id, departmentId);
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]

@@ -9,12 +9,14 @@ namespace API.Controllers
     public class DocumentationController : BaseApiController
     {
         private readonly IDocumentationRepository _documentationRepository;
-        private readonly IPatientExist _patientRepository;
+        private readonly IDocumentationTypeRepository _documentationTypeRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public DocumentationController(IDocumentationRepository documentationRepository, IPatientExist patientRepository)
+        public DocumentationController(IDocumentationRepository documentationRepository, IPatientRepository patientRepository, IDocumentationTypeRepository documentationTypeRepository)
         {
             _documentationRepository = documentationRepository;
             _patientRepository = patientRepository;
+            _documentationTypeRepository = documentationTypeRepository;
         }
 
         [HttpGet("{id}")]
@@ -42,7 +44,13 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(AddDocumentationDto newDocumentation)
         {
-            if (!await PatientIdValidate(newDocumentation.PatientId)) return BadRequest("Patient id invalid");
+            var patient = await _patientRepository.GetByIdAsync(newDocumentation.PatientId);
+            if (patient == null)
+                return BadRequest("Patient does not exist");
+
+            var documentationType = await _documentationTypeRepository.GetByIdAsync(newDocumentation.TypeId);
+            if (documentationType == null)
+                return BadRequest("DocumentationType does not exist");
 
             DocumentationDto documentation = await _documentationRepository.AddAsync(newDocumentation);
 
@@ -52,8 +60,8 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, DocumentationDto documentation)
         {
-            if(await _documentationRepository.GetByIdAsync(id) == null) return BadRequest("Documentation does not exist");
-            if (!await PatientIdValidate(documentation.PatientId)) return BadRequest("Patient id invalid");
+            if(await _documentationRepository.GetByIdAsync(id) == null) 
+                return BadRequest("Documentation does not exist");
 
             await _documentationRepository.UpdateAsync(documentation);
 
@@ -69,11 +77,6 @@ namespace API.Controllers
             var documentation = _documentationRepository.DeleteAsync(id);
 
             return Ok(documentation);
-        }
-
-        private async Task<bool> PatientIdValidate(int id)
-        {
-            return await _patientRepository.PatientExist(id);
         }
     }
 }

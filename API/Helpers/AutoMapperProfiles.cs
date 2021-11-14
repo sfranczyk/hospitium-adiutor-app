@@ -33,7 +33,11 @@ namespace API.Helpers
             CreateMap<DocumentationTypeDto, DocumentationType>();
             
             CreateMap<AddDocumentationDto, Documentation>();
-            CreateMap<Documentation, DocumentationDto>();
+            CreateMap<Documentation, DocumentationDto>()
+                .ForMember(dest => dest.Name,
+                opt => opt.MapFrom(src => src.Type.Name))
+                .ForMember(dest => dest.ContentDescription,
+                    opt => opt.MapFrom(src => src.Type.JsonDescription));
         }
     }
 }

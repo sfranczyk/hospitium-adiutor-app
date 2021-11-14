@@ -37,12 +37,16 @@ export class PatientService {
   }
 
   upadte(model: Patient): Observable<Patient>{
-    console.log(model);
-    return this.http.put<Patient>(`${this.endpoint}/${model.id}`, model).pipe(
+    return this.http.put<Patient>(`${this.endpoint}`, model).pipe(
       map(patient =>
         ({...patient, dateOfBirth: new Date(patient.dateOfBirth)})
       )
     );
+  }
+
+  moveToDepartment(patientId: number, departmentId: number): Observable<void>{
+    const params = { departmentId };
+    return this.http.patch<void>(`${this.endpoint}/change-department/${patientId}`, null, {params});
   }
 
   delete(id: number): Observable<Patient>{

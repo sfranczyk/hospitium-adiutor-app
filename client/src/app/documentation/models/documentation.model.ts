@@ -4,4 +4,7 @@ export interface Documentation {
     patientId: number;
     typeId:	number;
     created?: Date;
+
+    contentDescription?: string;
+    name?: string;
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentationType } from 'src/app/documentation/models/documentation-type.model';
 import { Patient } from '../../models/patient.model';
 
 @Component({
@@ -8,9 +9,11 @@ import { Patient } from '../../models/patient.model';
   styleUrls: ['./patient-management.component.scss']
 })
 export class PatientManagementComponent implements OnInit {
-  public patientData!: Patient;
+  ManagementMode = ManagementMode;
 
-  public editMode = false;
+  public patientData!: Patient;
+  public mode = ManagementMode.Display;
+
 
   constructor(private router: Router, private route: ActivatedRoute) {
     if(!this.router.getCurrentNavigation()?.extras.state) {
@@ -23,10 +26,49 @@ export class PatientManagementComponent implements OnInit {
   }
 
   turnOnEditMode(event: boolean) {
-    this.editMode = event;
+    if (event) {
+      this.mode = ManagementMode.Edit;
+    }
   }
 
-  cancelEditMode(event: boolean) {
-    this.editMode = event;
+  turnOnMoveToAnotherDepartmentMode() {
+    this.mode = ManagementMode.MoveToAnotherDepartment;
   }
+
+  turnOnSelectDocumentationToFillMode() {
+    this.mode = ManagementMode.SelectDocumentationToFill;
+  }
+
+  turnOnShowDocumentationListMode() {
+    this.mode = ManagementMode.ShowDocumentationList;
+  }
+
+  cancelEditMode(event: Patient) {
+    if (event) {
+      this.patientData = (event as Patient);
+    }
+    this.mode = ManagementMode.Display;
+  }
+
+  tryToAddDocumentation(event: DocumentationType | undefined) {
+    if (event) {
+      this.navigateToAddDocumentation(event as DocumentationType);
+    } else {
+      this.mode = ManagementMode.Display;
+    }
+  }
+
+  navigateToAddDocumentation(type: DocumentationType): void {
+    this.router.navigate(['documentation', 'add'], {
+      state: {patient: this.patientData, type}
+    });
+  }
+}
+
+export enum ManagementMode {
+  Display,
+  Edit,
+  MoveToAnotherDepartment,
+  SelectDocumentationToFill,
+  ShowDocumentationList
 }

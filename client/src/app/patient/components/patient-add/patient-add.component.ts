@@ -43,14 +43,15 @@ export class PatientAddComponent implements OnInit {
     patient.sex = this.sex[patient.sex] as Sex;
     patient.dateOfBirth = this.dateOfBirth.date;
     
-    patient.id = this.pateintEdit?.id; 
+    patient.id = this.pateintEdit?.id;
+
     const observ = this.editMode
       ? this.service.upadte(patient) 
       : this.service.post(patient);
     
     observ.subscribe(response => {
       console.log(response);
-      this.cancel();
+      this.cancel(patient);
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
@@ -80,10 +81,10 @@ export class PatientAddComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancel(patient?: Patient) {
     if(this.redirect){
       this.router.navigate(['..'], { relativeTo: this.activatedRoute });
     }
-    this.cancelRegister.emit(false);
+    this.cancelRegister.emit(patient);
   }
 }

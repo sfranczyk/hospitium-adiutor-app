@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DescriptionElement } from '../../enums/description-element.enum';
+import { DescriptionElementType } from '../../enums/description-element.enum';
 import { DocumentationType } from '../../models/documentation-type.model';
 import { DocumentationTypeService } from '../../service/documentation-type.service';
 
@@ -15,13 +15,13 @@ export class DocTypeAddComponent implements OnInit {
   @Input() typeEdit?: DocumentationType;
   @Output() emitCancel = new EventEmitter();
 
-  DescriptionElement = DescriptionElement;
+  DescriptionElement = DescriptionElementType;
 
-  descriptionElementList: {number: DescriptionElement, name: string}[] = [
-    {number: DescriptionElement.Null, name: 'Choose'},
-    {number: DescriptionElement.TextFiled, name: 'TextFiled'},
-    {number: DescriptionElement.Select, name: 'Select'},
-    {number: DescriptionElement.Radios, name: 'Mark'}
+  descriptionElementList: {number: DescriptionElementType, name: string}[] = [
+    {number: DescriptionElementType.Null, name: 'Choose'},
+    {number: DescriptionElementType.TextFiled, name: 'TextFiled'},
+    {number: DescriptionElementType.Select, name: 'Select'},
+    {number: DescriptionElementType.Radios, name: 'Mark'}
   ];
 
   typeFormGroup!: FormGroup;
@@ -51,7 +51,7 @@ export class DocTypeAddComponent implements OnInit {
 
   addElement() {
     const departmentForm = this.fb.group({
-      type: [DescriptionElement.Null, Validators.required]
+      type: [DescriptionElementType.Null, Validators.required]
     });
     this.description.push(departmentForm);
   }
@@ -61,11 +61,11 @@ export class DocTypeAddComponent implements OnInit {
   }
 
   defineElement(element: any) {
-    if (element.value.type === DescriptionElement.Null){
+    if (element.value.type === DescriptionElementType.Null){
       return;
     }
     element.addControl('name', this.fb.control('', Validators.required));
-    if (+element.value.type === DescriptionElement.Select || +element.value.type === DescriptionElement.Radios) {
+    if (+element.value.type === DescriptionElementType.Select || +element.value.type === DescriptionElementType.Radios) {
       element.addControl('selectors', this.fb.array([this.fb.control('', Validators.required)]));
     }
   }
@@ -85,11 +85,11 @@ export class DocTypeAddComponent implements OnInit {
 
   onSubmit(): void {
     const correctedDescription = 
-      (this.typeFormGroup.value.description as {type: DescriptionElement, name?: string, selectors?: string[]}[])
-        .map(x => +x.type === DescriptionElement.TextFiled ? x : ({...x, selectors: x.selectors?.filter(s => s)}))
+      (this.typeFormGroup.value.description as {type: DescriptionElementType, name?: string, selectors?: string[]}[])
+        .map(x => +x.type === DescriptionElementType.TextFiled ? x : ({...x, selectors: x.selectors?.filter(s => s)}))
         .filter(x => 
-          +x.type === DescriptionElement.TextFiled || 
-          (+x.type === DescriptionElement.Select || +x.type === DescriptionElement.Radios) && x.selectors?.length
+          +x.type === DescriptionElementType.TextFiled || 
+          (+x.type === DescriptionElementType.Select || +x.type === DescriptionElementType.Radios) && x.selectors?.length
         );
 
     const type = {
@@ -101,7 +101,7 @@ export class DocTypeAddComponent implements OnInit {
     const observ = this.service.post(type);
     
     observ.subscribe(response => {
-      console.log(response);
+      this.toastr.success('Type of documentation was added', 'Success');
       this.cancel();
     }, error => {
       console.log(error);

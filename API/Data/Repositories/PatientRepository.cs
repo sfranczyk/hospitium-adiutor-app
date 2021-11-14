@@ -29,6 +29,28 @@ namespace API.Data.Repositories
             return _mapper.Map<PatientDto>(patient);
         }
 
+        public async Task<PatientDto> AddAsync(PatientDto newPatient)
+        {
+            var patient = _mapper.Map<Patient>(newPatient);
+            _context.Patients.Add(patient);
+            await SaveAllAsync();
+            return _mapper.Map<PatientDto>(patient);
+        }
+
+        public async Task<bool> ChangeDepartmentAsync(int patientId, int departmentId)
+        {
+
+            var patient = await _context.Patients
+                .SingleOrDefaultAsync(x => x.Id == patientId);
+
+            var department = await _context.Departments
+                .SingleOrDefaultAsync(x => x.Id == departmentId);
+
+            patient.Department = department;
+
+            return await SaveAllAsync();
+        }
+
         public async Task<Patient> GetByIdAsync(int id)
         {
             return await _context.Patients.SingleOrDefaultAsync(x => x.Id == id);
@@ -86,6 +108,7 @@ namespace API.Data.Repositories
                 patient.Pesel = updatedPatient.Pesel;
                 patient.DateOfBirth = updatedPatient.DateOfBirth;
                 patient.PlaceOfBirth = updatedPatient.PlaceOfBirth;
+                patient.Sex = updatedPatient.Sex;
 
                 await SaveAllAsync();
             }
