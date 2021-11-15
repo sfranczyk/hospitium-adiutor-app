@@ -18,7 +18,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { HealthFacilityModule } from './health-facility/health-facility.module';
 import { PatientModule } from './patient/patient.module';
 import { UsefullsesModule } from './usefullses/usefullses.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './_modules/shared.module';
 import { DocumentationModule } from './documentation/documentation.module';
 
@@ -39,6 +39,7 @@ import { DocumentationModule } from './documentation/documentation.module';
   ],
   imports: [
     HealthFacilityModule,
+    ReactiveFormsModule,
     PatientModule,
     DocumentationModule,
     UsefullsesModule,

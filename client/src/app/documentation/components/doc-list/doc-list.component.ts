@@ -10,15 +10,14 @@ import { DocumentationService } from '../../service/documentation.service';
 export class DocListComponent implements OnInit {
 
   @Input() patientId?: number;
+  @Output() documentationEmit: EventEmitter<Documentation> = new EventEmitter();
   @Output() cancelEmit = new EventEmitter();
 
   documentationList!: Documentation[];
 
   constructor(
     private documentationServce: DocumentationService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     if (this.patientId) {
@@ -28,9 +27,8 @@ export class DocListComponent implements OnInit {
     }
   }
 
-  showDocument() {
-    console.log(this.documentationList);
-
+  showDocument(doc: Documentation) {
+    this.documentationEmit.emit(doc);
   }
 
   cancel() {

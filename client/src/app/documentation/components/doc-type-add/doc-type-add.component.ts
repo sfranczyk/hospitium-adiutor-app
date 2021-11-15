@@ -26,9 +26,8 @@ export class DocTypeAddComponent implements OnInit {
 
   typeFormGroup!: FormGroup;
 
-
   public editMode = false;
-  public redirect = false;
+  public redirect = true;
 
   constructor(
     private toastr: ToastrService, 
@@ -84,6 +83,11 @@ export class DocTypeAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.typeFormGroup.controls.name.invalid) {
+      this.toastr.warning('Name of type is invalid', 'Warning');
+      return;
+    }
+
     const correctedDescription = 
       (this.typeFormGroup.value.description as {type: DescriptionElementType, name?: string, selectors?: string[]}[])
         .map(x => +x.type === DescriptionElementType.TextFiled ? x : ({...x, selectors: x.selectors?.filter(s => s)}))
@@ -97,12 +101,11 @@ export class DocTypeAddComponent implements OnInit {
       jsonDescription: JSON.stringify(correctedDescription)
     }
     
-    console.log(type);
     const observ = this.service.post(type);
     
     observ.subscribe(response => {
       this.toastr.success('Type of documentation was added', 'Success');
-      this.cancel();
+      this.typeFormGroup.reset();
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
@@ -112,7 +115,7 @@ export class DocTypeAddComponent implements OnInit {
 
   cancel() {
     if(this.redirect){
-      this.router.navigate(['..'], { relativeTo: this.activatedRoute });
+      this.router.navigate(['..', 'list'], { relativeTo: this.activatedRoute });
     }
     this.emitCancel.emit(false);
   }

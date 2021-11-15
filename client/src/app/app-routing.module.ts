@@ -8,7 +8,6 @@ import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
-import { SelectDateComponent } from './usefullses/select-date/select-date.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -21,8 +20,7 @@ const routes: Routes = [
       {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
       {path: 'members/:id', component: MemberDetailComponent},
       {path: 'lists', component: ListsComponent},
-      {path: 'messages', component: MessagesComponent},
-      {path: 'test', component: SelectDateComponent}
+      {path: 'messages', component: MessagesComponent}
     ] 
   },
   {path: 'errors', component: TestErrorsComponent},

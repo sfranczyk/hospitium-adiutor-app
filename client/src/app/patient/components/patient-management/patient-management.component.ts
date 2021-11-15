@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DocumentationType } from 'src/app/documentation/models/documentation-type.model';
+import { Documentation } from 'src/app/documentation/models/documentation.model';
 import { Patient } from '../../models/patient.model';
 
 @Component({
@@ -15,7 +17,7 @@ export class PatientManagementComponent implements OnInit {
   public mode = ManagementMode.Display;
 
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private toastr: ToastrService, ) {
     if(!this.router.getCurrentNavigation()?.extras.state) {
       this.router.navigate(['..', 'search'], {relativeTo: this.route});
     }
@@ -23,6 +25,10 @@ export class PatientManagementComponent implements OnInit {
 
   ngOnInit() {
     this.patientData = history.state.patient;
+  }
+
+  deletePatient() {
+    this.toastr.error('You cannot delete patient yet', 'Info')
   }
 
   turnOnEditMode(event: boolean) {
@@ -58,11 +64,18 @@ export class PatientManagementComponent implements OnInit {
     }
   }
 
+  showDocumentation(document: Documentation) {
+    this.router.navigate(['documentation', 'view'], {
+      state: {patient: this.patientData, document}
+    });
+  }
+
   navigateToAddDocumentation(type: DocumentationType): void {
     this.router.navigate(['documentation', 'add'], {
       state: {patient: this.patientData, type}
     });
   }
+
 }
 
 export enum ManagementMode {

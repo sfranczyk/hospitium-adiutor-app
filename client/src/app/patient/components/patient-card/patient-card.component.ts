@@ -11,7 +11,6 @@ export class PatientCardComponent implements OnInit {
   @Input() patientData!: Patient;
   @Input() standardMode = true;
   @Output() eventButton: EventEmitter<boolean> = new EventEmitter();
-  // @Output() eventShowMore: EventEmitter<boolean> = new EventEmitter();
 
   sex = {
     [Sex.Man]: 'Man',

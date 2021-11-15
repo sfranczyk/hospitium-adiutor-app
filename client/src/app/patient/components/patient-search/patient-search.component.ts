@@ -18,9 +18,9 @@ export class PatientSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      pesel: ['36896266501', Validators.required]
+      firstName: [''],
+      lastName: [''],
+      pesel: ['']
     });
     this.getPatients();
   }
@@ -31,12 +31,12 @@ export class PatientSearchComponent implements OnInit {
 
   find() {
     const fgc = this.formGroup.controls;
-    if (fgc.pesel.valid) {
-      const p = this.patients.find(x => +x.pesel === +fgc.pesel.value);
-      this.filteredPatients = p ? [p] : [];
-    } else if (fgc.firstName.valid && fgc.lastName.valid) {
-      this.filteredPatients = this.patients.filter(x => x.firstName === fgc.firstName.value && x.lastName === fgc.lastName.value);
-    }
+    this.filteredPatients = 
+      this.patients.filter(
+        x => x.firstName === fgc.firstName.value 
+        || x.lastName === fgc.lastName.value 
+        || +x.pesel === +fgc.pesel.value
+      );
   }
 
   navigateToMoreOption(patient: Patient){

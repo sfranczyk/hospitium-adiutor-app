@@ -16,6 +16,7 @@ export class PatientChangeDepartmentComponent implements OnInit {
   @Input() patient!: Patient;
 
   departments!: DepartmentDetails[];
+  JSON = JSON;
 
   patientLeft!: Patient[];
   patientRight!: Patient[];
@@ -36,9 +37,9 @@ export class PatientChangeDepartmentComponent implements OnInit {
     }
 
     this.departmentService.getAll().subscribe(list => {
-      this.departments = list;
+      this.departments = list.map(x => ({id: +x.id!, name: x.name}));
       if (list.length) {
-        this.departmentId = list[0].id as number;
+        this.departmentId = this.departments[0].id!;
       }
     });
   }
@@ -56,9 +57,11 @@ export class PatientChangeDepartmentComponent implements OnInit {
 
   submit() {
     if (this.patientRight.length) {
-      this.patientService.moveToDepartment((this.patient.id as number), this.departmentId).subscribe(_ => 
-        this.toastr.info('The patient was transferred')
-        );
+      this.patientService.moveToDepartment((this.patient.id as number), this.departmentId).subscribe(_ => {
+        this.patient.department = this.departments.find(x => x.id === +this.departmentId);
+        this.toastr.info('The patient was transferred to ' + this.patient.department?.name, 'Success');
+        this.cancelEmit(this.patient);
+      });
         this.cancelEmit();
     } else {
       this.toastr.info('The patient was not transferred to another department');
@@ -66,8 +69,8 @@ export class PatientChangeDepartmentComponent implements OnInit {
     }
   }
 
-  cancelEmit() {
-    this.cancel.emit(false);
+  cancelEmit(patient?: Patient) {
+    this.cancel.emit(patient);
   }
 
 }

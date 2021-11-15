@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.Models
 {
@@ -9,6 +10,8 @@ namespace API.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
-        public DateTime LastActive {get; set; } = DateTime.Now;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Profession { get; set; }
     }
 }

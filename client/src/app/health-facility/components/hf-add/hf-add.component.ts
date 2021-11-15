@@ -50,7 +50,7 @@ export class HfAddComponent implements OnInit {
   send() {
     const hf = this.hfFormGroup.value as HealthFacility;
 
-    hf.departments = (hf.departments as string[]).filter(x => x.replace(/\s/g, '') === '');
+    hf.departments = (hf.departments as string[]).filter(x => x.replace(/\s/g, '') !== '');
 
     hf.id = this.hfEdit?.id; 
     const observ = this.editMode
