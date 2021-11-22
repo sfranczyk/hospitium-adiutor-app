@@ -7,72 +7,74 @@ using API.Models;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
+            _signInManager = signInManager;
+            _userManager = userManager;
             _tokenService = tokenService;
-            _context = context;
+            _mapper = mapper;
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExist(registerDto.Username)) return BadRequest("Username is taken");
 
-            using var hmac = new HMACSHA512();
+            var user = _mapper.Map<AppUser>(registerDto);
 
-            var user = new AppUser
+            user.UserName = registerDto.Username.ToLower();
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if(!result.Succeeded) return BadRequest(result.Errors);
+
+            return new UserDto
             {
-                UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                Profession = registerDto.Profession
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return new UserDto{
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user)
             };
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users
-                .SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _userManager.Users
+                .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
             if (user == null) return Unauthorized("Invalid username");
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            if (!result.Succeeded) return Unauthorized();
 
-            for (int i = 0; i < computedHash.Length; ++i)
+            // var roleResult = await _userManager.AddToRoleAsync(user, "User");
+
+            // if (!roleResult.Succeeded) return Unauthorized();
+
+            return new UserDto
             {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
-
-            return new UserDto{
                 Username = user.UserName,
                 Profession = user.Profession,
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user)
             };
         }
 
         private async Task<bool> UserExist(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
     }
 }

@@ -7,7 +7,7 @@
 
         <li class="nav-item dropdown" routerLinkActive='active' dropdown>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-            Patients
+            Patient
           </a>
           <div class="dropdown-menu mt-2" *dropdownMenu>
             <a class="dropdown-item" routerLink='/patient/list' routerLinkActive='active'>List</a>
@@ -24,13 +24,17 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink='/documentation/type/list' routerLinkActive='active'>DocType</a>
+          <a class="nav-link" routerLink='/documentation/type/list' routerLinkActive='active'>Documentation</a>
+        </li>
+
+        <li class="nav-item" *appHasRole='["Admin"]'>
+          <a class="nav-link" routerLink='/admin' routerLinkActive='active'>Admin</a>
         </li>
         
       </ng-container>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>
-      </li>
+      </li> -->
     </ul>
 
     <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>

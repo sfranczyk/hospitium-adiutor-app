@@ -3,7 +3,7 @@
     <div class="header row">
       <h1 class="col-8 text-left">Documentation types</h1>
       <div *ngIf="mode === DocTypeListMode.List" class="col-md-4 text-right">
-          <button (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
+          <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
       </div>
 
     </div>
@@ -13,7 +13,7 @@
               <h4 [ngStyle]="{'color': dt.isUnused ? '#000000' : '#839496'}">{{dt.name}}</h4>
             </div>
             <hr>
-            <div class="cell-content d-flex justify-content-around">
+            <div *appHasRole='["Admin"]' class="cell-content d-flex justify-content-around">
               <div class="cell-div-action">
                 <button type="button" class="btn btn-primary btn-circle btn-md mr-2">
                   <i class="bi bi-card-text"></i> Show description
@@ -29,6 +29,13 @@
                 </button>
                 <button *ngIf="mode === DocTypeListMode.SelectList" type="button" class="btn btn-success btn-circle btn-md" (click)="returnTypeToFill(dt)">
                   <i class="bi bi-file-earmark-check"></i> Fill
+                </button>
+              </div>
+            </div>
+            <div *appHasRole='["User"]'>
+              <div class="cell-content d-flex justify-content-around">
+                <button type="button" class="btn btn-primary btn-circle btn-md mr-2">
+                  <i class="bi bi-card-text"></i> Show description
                 </button>
               </div>
             </div>

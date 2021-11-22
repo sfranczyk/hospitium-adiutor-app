@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
     }
     const {confirmPassword, ...user} = this.registerForm.value;
     this.accountService.register(user).subscribe(response => {
-      console.log(response);
+      this.toastr.success('User was added', 'Success');
       this.cancel();
     }, error => {
       console.log(error);
@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cancel() {
+    this.registerForm.reset();
     this.cancelRegister.emit(false);
   }
 

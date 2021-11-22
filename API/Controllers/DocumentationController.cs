@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Interfaces;
 using API.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class DocumentationController : BaseApiController
     {
         private readonly IDocumentationRepository _documentationRepository;

@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using API.Interfaces;
 using API.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class DocumentationTypeController : BaseApiController
     {
         private readonly IDocumentationTypeRepository _typeRepository;
@@ -60,6 +62,7 @@ namespace API.Controllers
             return Ok(types);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost]
         public async Task<ActionResult> Post(AddDocumentationTypeDto newDocumentation)
         {
@@ -68,6 +71,7 @@ namespace API.Controllers
             return Ok(documentation);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, DocumentationTypeDto documentation)
         {
@@ -79,6 +83,7 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<DocumentationTypeDto>> Delete(int id)
         {
@@ -90,6 +95,7 @@ namespace API.Controllers
             return Ok(documentation);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPatch("{id}")]
         public async Task<ActionResult<DocumentationTypeDto>> Restore(int id)
         {

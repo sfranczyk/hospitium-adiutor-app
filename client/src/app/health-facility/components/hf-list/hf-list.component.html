@@ -3,7 +3,7 @@
       <div class="header row">
         <h1 class="col-6 col-md-4">Health facilities</h1>
         <div class="col col-12 col-md-8 text-right">
-            <button (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
+            <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
         </div>
 
       </div>
@@ -18,7 +18,7 @@
                 <div>
                   Departments: <strong>{{departmentsAsString(hf.departments)}}</strong>
                 </div>
-                <div class="cell-div-action">
+                <div *appHasRole='["Admin"]' class="cell-div-action">
                   <button type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(hf)">
                     <i class="bi bi-pen"></i>
                   </button>

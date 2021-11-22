@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using API.Interfaces;
 using API.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class HealthFacilityController : BaseApiController
     {
         private readonly IHealthFacilityRepository _healthFacilityRepository;
@@ -37,6 +39,7 @@ namespace API.Controllers
             return Ok(types);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost]
         public async Task<ActionResult> Post(AddHealthFacilityDto addHealthFacility)
         {
@@ -45,6 +48,7 @@ namespace API.Controllers
             return Ok(healthFacilityDto);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, UpdateHealthFacilityDto healthFacility)
         {
@@ -56,6 +60,7 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<HealthFacilityDto>> Delete(int id)
         {

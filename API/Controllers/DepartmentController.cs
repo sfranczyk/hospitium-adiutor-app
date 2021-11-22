@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using API.Interfaces;
 using API.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class DepartmentController : BaseApiController
     {
         private readonly IDepartmentRepository _departmentRepository;
@@ -37,6 +39,7 @@ namespace API.Controllers
             return Ok(types);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost]
         public async Task<ActionResult> Post(AddDepartmentDto addDepartment)
         {
@@ -45,6 +48,7 @@ namespace API.Controllers
             return Ok(departmentDto);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, string department)
         {
@@ -56,6 +60,7 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<DepartmentDto>> Delete(int id)
         {

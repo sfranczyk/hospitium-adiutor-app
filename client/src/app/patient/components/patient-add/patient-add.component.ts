@@ -19,7 +19,7 @@ export class PatientAddComponent implements OnInit {
 
 
   public editMode = false;
-  public redirect = false;
+  public redirect = true;
   public patientFormGroup!: FormGroup;
 
 
@@ -50,11 +50,16 @@ export class PatientAddComponent implements OnInit {
       : this.service.post(patient);
     
     observ.subscribe(response => {
+      this.toastr.success(`Patient was ${this.editMode ? 'updated' : 'added'}`, 'Success');
       console.log(response);
-      this.cancel(patient);
+      if (!this.editMode) {
+        this.navigateToMoreOption({...response, dateOfBirth: new Date(patient.dateOfBirth)});
+      } else {
+        this.cancel(patient);
+      }
     }, error => {
       console.log(error);
-      this.toastr.error(error.error);
+      this.toastr.error('Patient was not added');
     });
   }
 
@@ -70,7 +75,7 @@ export class PatientAddComponent implements OnInit {
 
     if (this.pateintEdit){
       this.editMode = true;
-      console.log(this.pateintEdit);
+      this.redirect = false;
       this.patientFormGroup.patchValue({
         firstName: this.pateintEdit.firstName,
         lastName: this.pateintEdit.lastName,
@@ -86,5 +91,9 @@ export class PatientAddComponent implements OnInit {
       this.router.navigate(['..'], { relativeTo: this.activatedRoute });
     }
     this.cancelRegister.emit(patient);
+  }
+
+  navigateToMoreOption(patient: Patient){
+    this.router.navigate(['..', 'more'], {relativeTo: this.activatedRoute, state: {patient} });
   }
 }

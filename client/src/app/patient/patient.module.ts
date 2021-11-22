@@ -37,7 +37,7 @@ import { DocumentationModule } from '../documentation/documentation.module';
     FormsModule,
     DragDropModule,
     DocumentationModule,
-    UsefullsesModule
+    UsefullsesModule,
   ]
 })
 export class PatientModule { }

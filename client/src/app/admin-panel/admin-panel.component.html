@@ -1,0 +1,15 @@
+<h2>Admin Panel</h2>
+<div class="tab-panel">
+    <tabset #staticTabs class="user-tabset">
+        <tab heading='User managment' *appHasRole='["Admin"]'>
+            <div class="containter">
+                <app-user-managment></app-user-managment>
+            </div>
+        </tab>
+        <tab heading='Register new user' *appHasRole='["Admin"]'>
+            <div class="containter">
+                <app-register (cancelRegister)="selectTab(0)"></app-register>
+            </div>
+        </tab>
+    </tabset>
+</div>

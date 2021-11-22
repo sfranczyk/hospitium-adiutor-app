@@ -4,10 +4,11 @@ using API.Models.Dto;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    // [Authorize]
+    [Authorize(Policy = "RequireAdminRole")]
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;

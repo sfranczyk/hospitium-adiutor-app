@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from '../_guards/admin.guard';
 import { DocAddComponent } from './components/doc-add/doc-add.component';
 import { DocDisplayComponent } from './components/doc-display/doc-display.component';
 import { DocTypeAddComponent } from './components/doc-type-add/doc-type-add.component';
@@ -13,7 +14,8 @@ const routes: Routes = [{
       children: [
         {
           path: 'add',
-          component: DocTypeAddComponent
+          component: DocTypeAddComponent,
+          canActivate: [AdminGuard]
         },
         {
           path: 'list',

@@ -11,8 +11,8 @@ import { HfListComponent } from './components/hf-list/hf-list.component';
 
 @NgModule({
   declarations: [
-    HfAddComponent,
-    HfListComponent
+    // HfAddComponent,
+    // HfListComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientAddComponent } from './components/patient-add/patient-add.component';
-import { PatientChangeDepartmentComponent } from './components/patient-change-department/patient-change-department.component';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
 import { PatientManagementComponent } from './components/patient-management/patient-management.component';
 import { PatientSearchComponent } from './components/patient-search/patient-search.component';
@@ -11,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'search',
+      redirectTo: 'list',
       pathMatch: 'full'
     },
     {
@@ -29,10 +28,6 @@ const routes: Routes = [{
     {
       path: 'more',
       component: PatientManagementComponent
-    },
-    {
-      path: 'test',
-      component: PatientChangeDepartmentComponent
     }
   ]
 }];

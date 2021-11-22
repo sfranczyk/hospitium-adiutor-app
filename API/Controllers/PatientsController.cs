@@ -5,10 +5,11 @@ using API.Models.Dto;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static System.Char;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    // [Authorize]
+    [Authorize]
     public class PatientsController : BaseApiController
     {
         private readonly IPatientRepository _patientRepository;

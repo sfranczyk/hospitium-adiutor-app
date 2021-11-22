@@ -2,6 +2,17 @@
     <div *ngIf="!registerMode">
         <h1 class="text-center text-primary">Hospitium Adiutor App</h1>
         <h2>Choose action</h2>
+
+        <div *appHasRole='["Admin"]' class="card mt-3">
+            <div class="card-header">
+                <h4><i class="bi bi-person-fill"></i> Users</h4>
+            </div>
+            <div class="class-body d-flex justify-content-start p-2">
+                <button class="btn btn-success btn-lg mr-2" (click)="registerToggle()"><i class="bi bi-person-plus"></i> Register new</button>
+                <button class="btn btn-success btn-lg mr-2" routerLink='/admin'><i class="bi bi-exclude"></i> Change roles</button>
+            </div>
+        </div> 
+
         <div class="card">
             <div class="card-header">
                 <h4><i class="bi bi-file-earmark-person"></i> Patients</h4>
@@ -19,7 +30,7 @@
             </div>
             <div class="class-body d-flex justify-content-start p-2">
                 <button class="btn btn-info btn-lg mr-2"  routerLink='/health-facility'><i class="bi bi-list-ol"></i> List</button>
-                <button class="btn btn-success btn-lg mr-2" routerLink='/health-facility/add'><i class="bi bi-plus-square"></i> Add new</button>
+                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/health-facility/add'><i class="bi bi-plus-square"></i> Add new</button>
             </div>
         </div>
     
@@ -29,18 +40,9 @@
             </div>
             <div class="class-body d-flex justify-content-start p-2">
                 <button class="btn btn-info btn-lg mr-2" routerLink='/documentation/type/list'><i class="bi bi-list-ol"></i> List</button>
-                <button class="btn btn-success btn-lg mr-2" routerLink='/documentation/type/add'><i class="bi bi-plus-square"></i> Add new</button>
+                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/documentation/type/add'><i class="bi bi-plus-square"></i> Add new</button>
             </div>
         </div>
-    
-        <div class="card mt-3">
-            <div class="card-header">
-                <h4><i class="bi bi-person-fill"></i> Users</h4>
-            </div>
-            <div class="class-body d-flex justify-content-start p-2">
-                <button class="btn btn-success btn-lg mr-2" (click)="registerToggle()"><i class="bi bi-person-plus"></i> Register new</button>
-            </div>
-        </div>    
     </div>
     
     <div *ngIf="registerMode" class="container">

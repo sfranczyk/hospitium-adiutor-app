@@ -6,6 +6,7 @@ import { SharedModule } from '../_modules/shared.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { ChipsComponent } from './chips/chips.component';
+import { HasRoleDirective } from '../_directives/has-role.directive';
 
 
 
@@ -20,10 +21,12 @@ import { ChipsComponent } from './chips/chips.component';
   ],
   declarations: [
     SelectDateComponent,
-    ChipsComponent
+    ChipsComponent,
+    HasRoleDirective,
   ],
   exports: [
-    SelectDateComponent
+    SelectDateComponent,
+    HasRoleDirective,
   ],
 })
 export class UsefullsesModule { }
