@@ -23,6 +23,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { HfAddComponent } from './health-facility/components/hf-add/hf-add.component';
 import { HfListComponent } from './health-facility/components/hf-list/hf-list.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 @NgModule({
@@ -52,10 +53,6 @@ import { HfListComponent } from './health-facility/components/hf-list/hf-list.co
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

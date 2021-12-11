@@ -13,6 +13,7 @@ import { DocAddComponent } from './components/doc-add/doc-add.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocListComponent } from './components/doc-list/doc-list.component';
 import { DocDisplayComponent } from './components/doc-display/doc-display.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DocDisplayComponent } from './components/doc-display/doc-display.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
-    UsefullsesModule
+    UsefullsesModule,
+    CollapseModule.forRoot(),
   ],
   exports: [
     DocTypeListComponent,
