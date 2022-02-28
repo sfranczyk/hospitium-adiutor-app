@@ -1,46 +1,46 @@
 <div *ngIf="accountService.currentUser$ | async">
     <div *ngIf="!registerMode">
         <h1 class="text-center text-primary">Hospitium Adiutor App</h1>
-        <h2>Choose action</h2>
+        <h2>Wybierz akcję</h2>
 
         <div *appHasRole='["Admin"]' class="card">
             <div class="card-header">
-                <h4><i class="bi bi-person-fill"></i> Users</h4>
+                <h4><i class="bi bi-person-fill"></i> Użytkownicy</h4>
             </div>
             <div class="class-body d-flex justify-content-start p-2">
-                <button class="btn btn-success btn-lg mr-2" (click)="registerToggle()"><i class="bi bi-person-plus"></i> Register new</button>
-                <button class="btn btn-success btn-lg mr-2" routerLink='/admin'><i class="bi bi-exclude"></i> Change roles</button>
+                <button class="btn btn-success btn-lg mr-2" (click)="registerToggle()"><i class="bi bi-person-plus"></i> Zarejestruj</button>
+                <button class="btn btn-success btn-lg mr-2" routerLink='/admin'><i class="bi bi-exclude"></i> Zmień role</button>
             </div>
         </div> 
 
         <div class="card mt-3">
             <div class="card-header">
-                <h4><i class="bi bi-file-earmark-person"></i> Patients</h4>
+                <h4><i class="bi bi-file-earmark-person"></i> Pacjenci</h4>
             </div>
             <div class="class-body d-flex justify-content-start p-2">
-                <button class="btn btn-info btn-lg mr-2" routerLink='/patient/list'><i class="bi bi-list-ol"></i> List</button>
-                <button class="btn btn-primary btn-lg mr-2" routerLink='/patient/search'><i class="bi bi-search"></i> Find</button>
-                <button class="btn btn-success btn-lg mr-2" routerLink='/patient/add'><i class="bi bi-person-plus"></i> Register new</button>
+                <button class="btn btn-info btn-lg mr-2" routerLink='/patient/list'><i class="bi bi-list-ol"></i> Lista</button>
+                <button class="btn btn-primary btn-lg mr-2" routerLink='/patient/search'><i class="bi bi-search"></i> Szukaj</button>
+                <button class="btn btn-success btn-lg mr-2" routerLink='/patient/add'><i class="bi bi-person-plus"></i> Zarejestruj</button>
             </div>
         </div>
     
         <div class="card mt-3">
             <div class="card-header">
-                <h4><i class="bi bi-building"></i> Health facilities | Hospitals</h4>
+                <h4><i class="bi bi-building"></i> Placówki zdrowia | Szpitale</h4>
             </div>
             <div class="class-body d-flex justify-content-start p-2">
-                <button class="btn btn-info btn-lg mr-2"  routerLink='/health-facility'><i class="bi bi-list-ol"></i> List</button>
-                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/health-facility/add'><i class="bi bi-plus-square"></i> Add new</button>
+                <button class="btn btn-info btn-lg mr-2"  routerLink='/health-facility'><i class="bi bi-list-ol"></i> Lista</button>
+                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/health-facility/add'><i class="bi bi-plus-square"></i> Dodaj</button>
             </div>
         </div>
     
         <div class="card mt-3">
             <div class="card-header">
-                <h4><i class="bi bi-book"></i> Documentation types</h4>
+                <h4><i class="bi bi-book"></i> Typy dokumentacji</h4>
             </div>
             <div class="class-body d-flex justify-content-start p-2">
-                <button class="btn btn-info btn-lg mr-2" routerLink='/documentation/type/list'><i class="bi bi-list-ol"></i> List</button>
-                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/documentation/type/add'><i class="bi bi-plus-square"></i> Add new</button>
+                <button class="btn btn-info btn-lg mr-2" routerLink='/documentation/type/list'><i class="bi bi-list-ol"></i> Lista</button>
+                <button *appHasRole='["Admin"]' class="btn btn-success btn-lg mr-2" routerLink='/documentation/type/add'><i class="bi bi-plus-square"></i> Dodaj</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
 
 <div *ngIf="(accountService.currentUser$ | async) === null" class="container mt-5">
     <div style='text-align: center;'>
-        <h1>Welcome on Hospitium Adiutor App</h1>
-        <p class="lead">If you don't have account contact with the administrator!</p>
+        <h1>Witaj w Hospitium Adiutor App</h1>
+        <p class="lead">Jeśli nie masz konta skontaktuj się z administratorem!</p>
     </div>    
 </div>

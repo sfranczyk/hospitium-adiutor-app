@@ -24,8 +24,8 @@ export class PatientAddComponent implements OnInit {
 
 
   sex: {[id: string] : Sex | string} = {
-    'Man': Sex.Man,
-    'Woman': Sex.Woman,
+    'Mężczyzna': Sex.Man,
+    'Kobieta': Sex.Woman,
     [Sex.Man]: 'Man',
     [Sex.Woman]: 'Woman'
   }
@@ -67,8 +67,8 @@ export class PatientAddComponent implements OnInit {
     this.patientFormGroup = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      pesel: ['', Validators.required],
-      sex: ['Man', Validators.required],
+      pesel: ['', [Validators.required, Validators.pattern('[0-9]{11}')]],
+      sex: ['Mężczyzna', Validators.required],
       placeOfBirth: ['', Validators.required],
       dateOfBirth: ['', Validators.required]
     });

@@ -29,8 +29,6 @@ namespace API.Services
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
-                // new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-                // new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName)
             };
 
             var roles = await _userManager.GetRolesAsync(user);

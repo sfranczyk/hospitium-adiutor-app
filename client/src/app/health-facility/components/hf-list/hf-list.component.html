@@ -1,9 +1,9 @@
 <div class="container mt-5">
     <div *ngIf="!editMode" style='text-align: center;'>
       <div class="header row">
-        <h1 class="col-6 col-md-4">Health facilities</h1>
+        <h1 class="col-6 col-md-4">Placówki medyczne</h1>
         <div class="col col-12 col-md-8 text-right">
-            <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
+            <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Utwórz</button>
         </div>
 
       </div>
@@ -11,12 +11,12 @@
             <div class="cell">
               <div class="cell-header">
                 <h4>{{hf.name}}</h4>
-                City: <strong>{{hf.city}}</strong>
+                Miasto: <strong>{{hf.city}}</strong>
               </div>
               <hr>
               <div class="cell-content">
                 <div>
-                  Departments: <strong>{{departmentsAsString(hf.departments)}}</strong>
+                  Oddziały: <strong>{{departmentsAsString(hf.departments)}}</strong>
                 </div>
                 <div *appHasRole='["Admin"]' class="cell-div-action">
                   <button type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(hf)">

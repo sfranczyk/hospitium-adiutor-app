@@ -8,16 +8,16 @@
     "ProfessionId": 3
   },
   {
-    "UserName": "Dawson",
-    "FirstName": "Barrett",
+    "UserName": "dawid",
+    "FirstName": "Dawid",
     "DateOfBirth": "1997-01-01",
     "Created": "2020-02-25",
-    "LastName": "Trujillo",
+    "LastName": "Barktiewicz",
     "ProfessionId": 2
   },
   {
-    "UserName": "Briggs",
-    "FirstName": "Noel",
+    "UserName": "weronika",
+    "FirstName": "Weronika",
     "DateOfBirth": "1996-05-31",
     "Created": "2019-05-21",
     "LastName": "Swanson",

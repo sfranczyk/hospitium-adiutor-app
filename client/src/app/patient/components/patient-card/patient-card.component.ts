@@ -13,8 +13,8 @@ export class PatientCardComponent implements OnInit {
   @Output() eventButton: EventEmitter<boolean> = new EventEmitter();
 
   sex = {
-    [Sex.Man]: 'Man',
-    [Sex.Woman]: 'Woman',
+    [Sex.Man]: 'Mężczyzna',
+    [Sex.Woman]: 'Kobieta',
   }
 
   constructor() {}

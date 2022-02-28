@@ -17,13 +17,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './_modules/shared.module';
 import { DocumentationModule } from './documentation/documentation.module';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-// import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagmentComponent } from './admin/user-managment/user-managment.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { HfAddComponent } from './health-facility/components/hf-add/hf-add.component';
 import { HfListComponent } from './health-facility/components/hf-list/hf-list.component';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 @NgModule({
@@ -36,7 +34,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     NotFoundComponent,
     ServerErrorComponent,
     AdminPanelComponent,
-    // HasRoleDirective,
     UserManagmentComponent,
     RolesModalComponent,
     HfAddComponent,

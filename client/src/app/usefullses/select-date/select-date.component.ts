@@ -9,22 +9,38 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 export class SelectDateComponent implements OnInit {
   @Input() startDate?: Date;
   public fg!: FormGroup;
-  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  // months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
   years = Array.from({length: 150}, (_, i) => new Date().getFullYear() - i);
 
+  // daysInMonth: {[id: string] : number} = {
+  //   January: 31,
+  //   February: 29,
+  //   March: 31,
+  //   April: 30,
+  //   May: 31,
+  //   June: 30,
+  //   July: 31,
+  //   August: 31,
+  //   September: 30,
+  //   October: 31,
+  //   November: 30,
+  //   December: 31
+  // };
+
   daysInMonth: {[id: string] : number} = {
-    January: 31,
-    February: 29,
-    March: 31,
-    April: 30,
-    May: 31,
-    June: 30,
-    July: 31,
-    August: 31,
-    September: 30,
-    October: 31,
-    November: 30,
-    December: 31
+    Styczeń: 31,
+    Luty: 29,
+    Marzec: 31,
+    Kwiecień: 30,
+    Maj: 31,
+    Czerwiec: 30,
+    Lipiec: 31,
+    Sierpień: 31,
+    Wrzesień: 30,
+    PAździernik: 31,
+    Listopad: 30,
+    Grudzień: 31
   };
 
   get days(): number[]{

@@ -1,21 +1,21 @@
 <form #addForm='ngForm' (ngSubmit)="send()" autocomplete="off" [formGroup]="hfFormGroup">
-    <h2 class="text-center text-primary" *ngIf="!editMode">Add new Health facility</h2>
-    <h2 class="text-center text-primary" *ngIf="editMode">Edit health facility</h2>
+    <h2 class="text-center text-primary" *ngIf="!editMode">Dodaj nową placówkę medyczną</h2>
+    <h2 class="text-center text-primary" *ngIf="editMode">Edytuj placówkę medyczną</h2>
     <hr>
     <div class="form-group">
-        <input type="text" class="form-control" name="name" formControlName="name" placeholder="Name">
+        <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nazwa">
     </div>
     
     <div class="form-group">
-        <input type="text" class="form-control" name="city" formControlName="city" placeholder="City">
+        <input type="text" class="form-control" name="city" formControlName="city" placeholder="Miasto">
     </div>
 
     <ng-container formArrayName="departments">
-        <h3>Departments</h3>
+        <h3>Oddziały</h3>
         <ng-container *ngFor="let department of departments.controls; let i = index">
             <div class="form-inline" >
                 <div class="form-group mb-2">
-                    <input [formControlName]="i" type="text" class="form-control" name="depatrment-name" placeholder="Department name">
+                    <input [formControlName]="i" type="text" class="form-control" name="depatrment-name" placeholder="Nazwa oddziału">
                 </div>
                 <i class="icon-trash bi bi-trash mb-2" (click)="deleteDepartment(i)"></i>
             </div>
@@ -25,8 +25,8 @@
 
 
     <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Create</button>
-        <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Update</button>
-        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+        <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Utwórz</button>
+        <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Aktualizuj</button>
+        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Anuluj</button>
     </div>
 </form>

@@ -1,4 +1,4 @@
-<h1 class="ml-4">Patients list</h1>
+<h1 class="ml-4">Lista pacjentów</h1>
 <div *ngFor="let patient of filteredPatients">
   <div class="mt-4">
     <app-patient-card [patientData]="patient" [standardMode]="false" (eventButton)="navigateToMoreOption(patient)"></app-patient-card>

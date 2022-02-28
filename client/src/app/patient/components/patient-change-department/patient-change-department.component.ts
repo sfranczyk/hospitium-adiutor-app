@@ -33,7 +33,7 @@ export class PatientChangeDepartmentComponent implements OnInit {
     if (this.patient.department) {
       this.currentDepartment = this.patient.department;
     } else {
-      this.currentDepartment = {name: 'Unassigned'};
+      this.currentDepartment = {name: 'Nie wyznaczony'};
     }
 
     this.departmentService.getAll().subscribe(list => {
@@ -59,7 +59,7 @@ export class PatientChangeDepartmentComponent implements OnInit {
     if (this.patientRight.length) {
       this.patientService.moveToDepartment((this.patient.id as number), this.departmentId).subscribe(_ => {
         this.patient.department = this.departments.find(x => x.id === +this.departmentId);
-        this.toastr.info('The patient was transferred to ' + this.patient.department?.name, 'Success');
+        this.toastr.info('Pacjent został przeniesiony na oddział ' + this.patient.department?.name, 'Sukces');
         this.cancelEmit(this.patient);
       });
         this.cancelEmit();

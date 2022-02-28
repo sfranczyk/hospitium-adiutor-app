@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <div *ngIf="mode !== DocTypeListMode.Edit" style='text-align: center;'>
     <div class="header row">
-      <h1 class="col-8 text-left">Documentation types</h1>
+      <h1 class="col-8 text-left">Typy dokumentacji</h1>
       <div *ngIf="mode === DocTypeListMode.List" class="col-md-4 text-right">
-          <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Create</button>
+          <button *appHasRole='["Admin"]' (click)="navigateToAdd()" class="btn btn-success btn-lg mr-2">Utwórz</button>
       </div>
 
     </div>
@@ -17,25 +17,25 @@
               <div class="cell-div-action">
                 <button type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="collapse(i)"
                 [attr.aria-expanded]="!isOpen[i]" aria-controls="collapseBasic">
-                  <i class="bi bi-card-text"></i> Show description
+                  <i class="bi bi-card-text"></i> Pokaż opis
                 </button>
                 <ng-container *appHasRole='["Admin"]'>
                   <button *ngIf="mode === DocTypeListMode.List" type="button" class="btn btn-primary btn-circle btn-md mr-2" (click)="editToggle(dt)">
-                    <i class="bi bi-pen"></i> Edit
+                    <i class="bi bi-pen"></i> Edytuj
                   </button>
                 </ng-container> 
                 <ng-container *appHasRole='["Admin"]'>
                   <button *ngIf="mode === DocTypeListMode.List && !dt.isUnused" type="button" class="btn btn-danger btn-circle btn-md" (click)="deleteDocumentationType(dt, i)">
-                    <i class="bi bi-file-earmark-excel"></i> Block use
+                    <i class="bi bi-file-earmark-excel"></i> Blokuj użycie
                   </button>
                 </ng-container> 
                 <ng-container *appHasRole='["Admin"]'>
                   <button *ngIf="mode === DocTypeListMode.List && dt.isUnused" type="button" class="btn btn-secondary btn-circle btn-md" (click)="restoreDocumentationType(dt, i)">
-                    <i class="bi bi-file-earmark-check"></i> Unlock use
+                    <i class="bi bi-file-earmark-check"></i> Odblokuj uzycie
                   </button>
                 </ng-container> 
                 <button *ngIf="mode === DocTypeListMode.SelectList" type="button" class="btn btn-success btn-circle btn-md" (click)="returnTypeToFill(dt)">
-                  <i class="bi bi-file-earmark-check"></i> Fill
+                  <i class="bi bi-file-earmark-check"></i> Wypełnij
                 </button>
               </div>
             </div>
@@ -60,7 +60,7 @@
 
   <div *ngIf="mode === DocTypeListMode.SelectList" class="container text-center">
     <button type="button" class="btn btn-secondary btn-circle btn-md" (click)="cancel()">
-      <i class="bi bi-file-earmark-check"></i> Cancel
+      <i class="bi bi-file-earmark-check"></i> Anuluj
     </button>
   </div>
 </div>

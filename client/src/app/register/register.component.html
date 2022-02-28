@@ -1,49 +1,49 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">User registration</h2>
+    <h2 class="text-center text-primary">Rejestracja użytkownika</h2>
     <hr>
     <div class="form-group">
         <input
             [class.is-invalid]='registerForm.get("username")?.errors && registerForm.get("username")?.touched'
-            type="text" class="form-control" formControlName="username" placeholder="Username">
-        <div class="invalid-feedback">Please enter a username</div>
+            type="text" class="form-control" formControlName="username" placeholder="Nazwa użytkownika">
+        <div class="invalid-feedback">Proszę wpisać nazwę użytkownika</div>
     </div>
     
     <div class="form-group">
         <input 
             [class.is-invalid]='registerForm.get("password")?.errors && registerForm.get("password")?.touched'
-            type="password" class="form-control" formControlName="password"  placeholder="Password">
-        <div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">Please enter a password</div>
-        <div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">Password must be least 4 characters</div>
+            type="password" class="form-control" formControlName="password"  placeholder="Hasło">
+        <div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">Wproszę wprowadzić hasło</div>
+        <div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">Hasło musi posiadać 6 znaków</div>
     </div>
 
     <div class="form-group">
         <input
             [class.is-invalid]='registerForm.get("confirmPassword")?.errors && registerForm.get("confirmPassword")?.touched'
-            type="password" class="form-control" formControlName="confirmPassword"  placeholder="Repeat password">
-        <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback">Please enter a confirm password</div>
-        <div *ngIf="registerForm.get('confirmPassword')?.hasError('isMatching')" class="invalid-feedback">Confirm password must match password</div>
+            type="password" class="form-control" formControlName="confirmPassword"  placeholder="Powtórz hasło">
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback">Proszę powtórzyć hasło</div>
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('isMatching')" class="invalid-feedback">Hasła nie są takie same</div>
     </div>
 
     <div class="form-group">
         <input 
             [class.is-invalid]='registerForm.get("firstName")?.errors && registerForm.get("firstName")?.touched'
-            type="text" class="form-control" formControlName="firstName" placeholder="First name">
-        <div *ngIf="registerForm.get('firstName')?.hasError('required')" class="invalid-feedback">Please enter a first name</div>
+            type="text" class="form-control" formControlName="firstName" placeholder="Imię">
+        <div *ngIf="registerForm.get('firstName')?.hasError('required')" class="invalid-feedback">Proszę wpisać imię</div>
     </div>
 
     <div class="form-group">
         <input 
             [class.is-invalid]='registerForm.get("lastName")?.errors && registerForm.get("lastName")?.touched'
-            type="text" class="form-control" formControlName="lastName" placeholder="Last name">
-        <div *ngIf="registerForm.get('lastName')?.hasError('required')" class="invalid-feedback">Please enter a last name</div>
+            type="text" class="form-control" formControlName="lastName" placeholder="Nazwisko">
+        <div *ngIf="registerForm.get('lastName')?.hasError('required')" class="invalid-feedback">Proszę wpisać nazwisko</div>
     </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" formControlName="profession" placeholder="Profession">
+        <input type="text" class="form-control" formControlName="profession" placeholder="Zawód">
     </div>
 
     <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit">Register</button>
-        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+        <button class="btn btn-success mr-2" type="submit">Rejestruj</button>
+        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Anuluj</button>
     </div>
 </form>

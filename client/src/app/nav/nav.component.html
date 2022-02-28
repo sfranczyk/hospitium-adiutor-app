@@ -7,24 +7,24 @@
 
         <li class="nav-item dropdown" routerLinkActive='active' dropdown>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-            Patient
+            Pacjenci
           </a>
           <div class="dropdown-menu mt-2" *dropdownMenu>
-            <a class="dropdown-item" routerLink='/patient/list' routerLinkActive='active'>List</a>
-            <a class="dropdown-item" routerLink='/patient/search' routerLinkActive='active'>Search</a>
+            <a class="dropdown-item" routerLink='/patient/list' routerLinkActive='active'>Lista</a>
+            <a class="dropdown-item" routerLink='/patient/search' routerLinkActive='active'>Szukaj</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink='/patient/add' routerLinkActive='active'>Register new</a>
+            <a class="dropdown-item" routerLink='/patient/add' routerLinkActive='active'>Zarejestruj</a>
           </div>
         </li>
 
         <li class="nav-item" dropdown>
           <a class="nav-link" routerLink='/health-facility' routerLinkActive='active'>
-            Health facility
+            Szpitale
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink='/documentation/type/list' routerLinkActive='active'>Documentation</a>
+          <a class="nav-link" routerLink='/documentation/type/list' routerLinkActive='active'>Dokumentacja</a>
         </li>
 
         <li class="nav-item" *appHasRole='["Admin"]'>
@@ -40,9 +40,9 @@
     <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle><i class="bi bi-person-fill"></i> {{user.firstName | titlecase}} {{user.lastName | titlecase}}</a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item">Edit Profile</a>
+        <a class="dropdown-item">Profil</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" (click)="logout()">Logout</a>
+        <a class="dropdown-item" (click)="logout()">Wyloguj</a>
       </div>
     </div>
 

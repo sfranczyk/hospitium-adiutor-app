@@ -1,9 +1,9 @@
 <form #addForm='ngForm' (ngSubmit)="onSubmit()" autocomplete="off" [formGroup]="typeFormGroup">
-  <h2 class="text-center text-primary" *ngIf="!editMode">Add new documentation type</h2>
+  <h2 class="text-center text-primary" *ngIf="!editMode">Dodaj nowy typ dokumentacji</h2>
   <h2 class="text-center text-primary" *ngIf="editMode">Edit documentation type</h2>
   <div class="card p-2">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Name" formControlName="name">
+      <input type="text" class="form-control" placeholder="Nazwa" formControlName="name">
     </div>
 
     <ng-container formArrayName="description">
@@ -28,14 +28,14 @@
             <container-element [ngSwitch]="element.value.type" [formGroupName]="i">
               <div *ngSwitchCase="DescriptionElement.TextFiled">
                 <div class="form-group">
-                  <input type="text" class="form-control mb-2" placeholder="Description text" formControlName="name">
-                  <textarea class="form-control text-center" rows="2" readonly> Here worker will write text </textarea>
+                  <input type="text" class="form-control mb-2" placeholder="Pytanie formularza" formControlName="name">
+                  <textarea class="form-control text-center" rows="2" readonly> Tutaj pracownik wypełni pole takstowe </textarea>
                 </div>
               </div>
 
               <div *ngSwitchCase="DescriptionElement.Select">
                 <div class="form-group">
-                  <input type="text" class="form-control mb-1" placeholder="Description text" formControlName="name">
+                  <input type="text" class="form-control mb-1" placeholder="Pytanie formularza" formControlName="name">
                   <div class="form-inline d-flex justify-content-start">
                     <button type="button" class="btn btn-info btn-circle btn-md mr-1 mt-1r"
                       (click)='addSelector(element)'><i class="bi bi-plus-circle"></i></button>
@@ -44,7 +44,7 @@
                       <div class="card text-white bg-primary mr-1 mt-1">
                         <div class="form-inline">
                           <input [formControlName]="j" type="text" class="form-control" name="depatrment-name"
-                            placeholder="Option {{j + 1}}">
+                            placeholder="Opcja {{j + 1}}">
                           <i class="icon-delete bi bi-x-circle mx-1" (click)="deleteSelector(element, j)"></i>
                         </div>
                       </div>
@@ -55,7 +55,7 @@
 
               <div *ngSwitchCase="DescriptionElement.Radios">
                 <div class="form-group">
-                  <input type="text" class="form-control mb-1" placeholder="Description text" formControlName="name">
+                  <input type="text" class="form-control mb-1" placeholder="Pytanie formularza" formControlName="name">
                   <div class="form-inline d-flex justify-content-start">
                     <button type="button" class="btn btn-info btn-circle btn-md mr-1 mt-1r"
                       (click)='addSelector(element)'><i class="bi bi-plus-circle"></i></button>
@@ -64,7 +64,7 @@
                       <div class="card text-white bg-primary mr-1 mt-1">
                         <div class="form-inline">
                           <input [formControlName]="j" type="text" class="form-control" name="depatrment-name"
-                            placeholder="Option {{j + 1}}">
+                            placeholder="Opcja {{j + 1}}">
                           <i class="icon-delete bi bi-x-circle mx-1" (click)="deleteSelector(element, j)"></i>
                         </div>
                       </div>
@@ -87,8 +87,8 @@
 
   </div>
   <div class="form-group text-center mt-2">
-    <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Add</button>
-    <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Update</button>
-    <button class="btn btn-secondary" (click)="cancel()" type="button">Cancel</button>
+    <button class="btn btn-success mr-2" type="submit" *ngIf="!editMode">Dodaj</button>
+    <button class="btn btn-success mr-2" type="submit" *ngIf="editMode">Aktualizuj</button>
+    <button class="btn btn-secondary" (click)="cancel()" type="button">Anuluj</button>
   </div>
 </form>

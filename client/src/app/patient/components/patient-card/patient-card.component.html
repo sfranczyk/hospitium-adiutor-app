@@ -12,21 +12,21 @@
     
       <div class="card-body">
         <div *ngIf="patientData.department">
-          <h5>Department: {{patientData.department!.name}} </h5>
+          <h5>Oddział: {{patientData.department!.name}} </h5>
           <hr>
         </div>
         <div class="row">
-            <div class="col-4"> Last name: {{patientData.lastName}} </div>
-            <div class="col-4"> First name: {{patientData.firstName}} </div>
+            <div class="col-4"> Nazwisko: {{patientData.lastName}} </div>
+            <div class="col-4"> Imię: {{patientData.firstName}} </div>
           </div>
         <div class="row">
           <div class="col-4"> PESEL: {{patientData.pesel}} </div>
-          <div class="col-8"> Sex: {{sex[patientData.sex]}} </div>
+          <div class="col-8"> Płeć: {{sex[patientData.sex]}} </div>
         </div>
         <div class="row">
-          <div class="col"> Age: {{patientData.age}} </div>
-          <div class="col"> Birth: {{patientData.dateOfBirth.toDateString()}} </div>
-          <div class="col"> City of Birth: {{patientData.placeOfBirth}} </div>
+          <div class="col"> Wiek: {{patientData.age}} </div>
+          <div class="col"> Data urodzenia: {{patientData.dateOfBirth.toDateString()}} </div>
+          <div class="col"> Miejsce urodzenia: {{patientData.placeOfBirth}} </div>
         </div>
       </div>
     </div>

@@ -18,10 +18,10 @@ export class DocTypeAddComponent implements OnInit {
   DescriptionElement = DescriptionElementType;
 
   descriptionElementList: {number: DescriptionElementType, name: string}[] = [
-    {number: DescriptionElementType.Null, name: 'Choose'},
-    {number: DescriptionElementType.TextFiled, name: 'TextFiled'},
-    {number: DescriptionElementType.Select, name: 'Select'},
-    {number: DescriptionElementType.Radios, name: 'Mark'}
+    {number: DescriptionElementType.Null, name: 'Wybierz'},
+    {number: DescriptionElementType.TextFiled, name: 'Pole tekstowe'},
+    {number: DescriptionElementType.Select, name: 'Jednokrotny wybór'},
+    {number: DescriptionElementType.Radios, name: 'Wielokrotny wybór'}
   ];
 
   typeFormGroup!: FormGroup;
@@ -84,7 +84,7 @@ export class DocTypeAddComponent implements OnInit {
 
   onSubmit(): void {
     if (this.typeFormGroup.controls.name.invalid) {
-      this.toastr.warning('Name of type is invalid', 'Warning');
+      this.toastr.warning('Nazwa niepoprawna', 'Uwaga');
       return;
     }
 
@@ -104,7 +104,7 @@ export class DocTypeAddComponent implements OnInit {
     const observ = this.service.post(type);
     
     observ.subscribe(response => {
-      this.toastr.success('Type of documentation was added', 'Success');
+      this.toastr.success('Typ dokumentacji został dodany', 'Sukces');
       this.typeFormGroup.reset();
     }, error => {
       console.log(error);

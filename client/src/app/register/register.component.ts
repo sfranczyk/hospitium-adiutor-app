@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
     }
     const {confirmPassword, ...user} = this.registerForm.value;
     this.accountService.register(user).subscribe(response => {
-      this.toastr.success('User was added', 'Success');
+      this.toastr.success('Użytkownik został dodany', 'Sukces!');
       this.cancel();
     }, error => {
       console.log(error);
